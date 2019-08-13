@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { BlacklistModule } from './auth/blacklist/blacklist.module';
@@ -14,6 +15,7 @@ import { APP_FILTER } from '@nestjs/core';
   imports: [
     CoreModule,
     AuthModule,
+    AdminModule,
     BlacklistModule,
     ConfigModule,
     TypeOrmModule.forRootAsync({
