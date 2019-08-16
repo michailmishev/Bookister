@@ -11,13 +11,13 @@ export class User {
     @PrimaryGeneratedColumn()
     id: string;
 
-    @Column({unique: true})
+    @Column({length: 15, unique: true})
     username: string;
 
     @Column('nvarchar')
     password: string;
 
-    @Column({unique: true})
+    @Column({length: 15, unique: true})
     email: string;
 
     @JoinTable()
@@ -34,9 +34,9 @@ export class User {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
     @OneToMany(type => LibraryEvent, libraryEvent => libraryEvent.user)
-    libraryEvents: LibraryEvent[];
+    libraryEvents: Promise<LibraryEvent>;
 
     @OneToMany(type => BookReview, bookReview => bookReview.user)
-    bookReview: BookReview[];
+    bookReview: Promise<BookReview[]>;
 
 }

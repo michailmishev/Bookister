@@ -10,10 +10,10 @@ export class BookReview {
     id: string;
 
     @ManyToOne(type => User, user => user.bookReview)
-    user: User;
+    user: Promise<User>;
 
     @ManyToOne(type => Book, book => book.bookReview)
-    book: Book;
+    book: Promise<Book>;
 
     @ManyToOne(type => RatingType, ratingType => ratingType.name)
     rating: RatingType;

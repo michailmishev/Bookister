@@ -1,16 +1,16 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class initial1565905196226 implements MigrationInterface {
+export class initial1565950085375 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query("CREATE TABLE `banstatus` (`id` int NOT NULL AUTO_INCREMENT, `isBanned` tinyint NOT NULL DEFAULT 0, `description` varchar(255) NOT NULL DEFAULT 'This user is not banned!', PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `blacklist` (`id` int NOT NULL AUTO_INCREMENT, `token` varchar(255) NOT NULL, `date` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `role` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `book` (`id` varchar(36) NOT NULL, `name` varchar(20) NOT NULL, `author` varchar(20) NOT NULL, `topic` varchar(10) NOT NULL, `language` varchar(10) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `isDeleted` tinyint NOT NULL DEFAULT 0, `isTaken` tinyint NOT NULL DEFAULT 0, PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `library_event_type` (`id` varchar(36) NOT NULL, `name` varchar(8) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `book` (`id` varchar(36) NOT NULL, `name` varchar(20) NOT NULL, `author` varchar(20) NOT NULL, `topic` varchar(10) NOT NULL, `language` varchar(10) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `isDeleted` tinyint NOT NULL DEFAULT 0, `isTaken` tinyint NOT NULL DEFAULT 0, UNIQUE INDEX `IDX_233978864a48c44d3fcafe0157` (`name`), PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `library_event_type` (`id` varchar(36) NOT NULL, `name` enum ('Taken', 'Returned') NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `library_event` (`id` varchar(36) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `userId` int NULL, `bookId` varchar(36) NULL, `nameId` varchar(36) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `username` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, `isDeleted` tinyint NOT NULL DEFAULT 0, `banstatusId` int NULL, UNIQUE INDEX `IDX_78a916df40e02a9deb1c4b75ed` (`username`), UNIQUE INDEX `IDX_e12875dfb3b1d92d7d7c5377e2` (`email`), UNIQUE INDEX `REL_15de78a2ad5e6dbfe54c777d7c` (`banstatusId`), PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `rating_type` (`id` varchar(36) NOT NULL, `name` varchar(9) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `username` varchar(15) NOT NULL, `password` varchar(255) NOT NULL, `email` varchar(15) NOT NULL, `isDeleted` tinyint NOT NULL DEFAULT 0, `banstatusId` int NULL, UNIQUE INDEX `IDX_78a916df40e02a9deb1c4b75ed` (`username`), UNIQUE INDEX `IDX_e12875dfb3b1d92d7d7c5377e2` (`email`), UNIQUE INDEX `REL_15de78a2ad5e6dbfe54c777d7c` (`banstatusId`), PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `rating_type` (`id` varchar(36) NOT NULL, `name` enum ('Awful', 'Bad', 'Average', 'Good', 'Excellent') NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `book_review` (`id` varchar(36) NOT NULL, `comment` varchar(1000) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `isDeleted` tinyint NOT NULL DEFAULT 0, `userId` int NULL, `bookId` varchar(36) NULL, `ratingId` varchar(36) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `user_roles_role` (`userId` int NOT NULL, `roleId` int NOT NULL, INDEX `IDX_5f9286e6c25594c6b88c108db7` (`userId`), INDEX `IDX_4be2f7adf862634f5f803d246b` (`roleId`), PRIMARY KEY (`userId`, `roleId`)) ENGINE=InnoDB");
         await queryRunner.query("ALTER TABLE `library_event` ADD CONSTRAINT `FK_f70e5fd64a62a0b34d955e5b5d1` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION");
@@ -45,6 +45,7 @@ export class initial1565905196226 implements MigrationInterface {
         await queryRunner.query("DROP TABLE `user`");
         await queryRunner.query("DROP TABLE `library_event`");
         await queryRunner.query("DROP TABLE `library_event_type`");
+        await queryRunner.query("DROP INDEX `IDX_233978864a48c44d3fcafe0157` ON `book`");
         await queryRunner.query("DROP TABLE `book`");
         await queryRunner.query("DROP TABLE `role`");
         await queryRunner.query("DROP TABLE `blacklist`");

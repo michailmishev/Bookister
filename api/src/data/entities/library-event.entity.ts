@@ -11,10 +11,10 @@ export class LibraryEvent {
     id: string;
 
     @ManyToOne(type => User, user => user.libraryEvents)
-    user: User;
+    user: Promise<User>;
 
     @ManyToOne(type => Book, book => book.libraryEvents)
-    book: Book;
+    book: Promise<Book>;
 
     @ManyToOne(type => LibraryEventType, libraryEventType => libraryEventType.name)
     name: LibraryEventType;

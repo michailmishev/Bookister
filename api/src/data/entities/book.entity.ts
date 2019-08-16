@@ -9,7 +9,7 @@ export class Book {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('nvarchar', {length: 20})
+    @Column('nvarchar', {length: 20, unique: true})
     name: string;
 
     @Column('nvarchar', {length: 20})
@@ -36,9 +36,9 @@ export class Book {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
     @OneToMany(type => LibraryEvent, libraryEvent => libraryEvent.book)
-    libraryEvents: LibraryEvent[];
+    libraryEvents: Promise<LibraryEvent[]>;
 
     @OneToMany(type => BookReview, bookReview => bookReview.book)
-    bookReview: BookReview[];
+    bookReview: Promise<BookReview[]>;
 
 }
