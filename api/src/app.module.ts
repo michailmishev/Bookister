@@ -10,6 +10,8 @@ import { BlacklistModule } from './auth/blacklist/blacklist.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { APP_FILTER } from '@nestjs/core';
+import { BooksController } from './books/books.controller';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -31,8 +33,9 @@ import { APP_FILTER } from '@nestjs/core';
       entities: ['./src/data/entities/*.ts'],
     }),
   }),
+    BooksModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, BooksController],
   providers: [AppService],
 })
 export class AppModule {

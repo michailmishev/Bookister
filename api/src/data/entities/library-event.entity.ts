@@ -1,8 +1,8 @@
 import { PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Entity } from 'typeorm';
 import { User } from './user.entity';
-import { type } from 'os';
+// import { type } from 'os';
 import { Book } from './book.entity';
-import { LibraryEventType } from './library-event-type.entity';
+import { BorrowType } from './borrow-type.entity';
 
 @Entity('library_event')
 export class LibraryEvent {
@@ -16,8 +16,8 @@ export class LibraryEvent {
     @ManyToOne(type => Book, book => book.libraryEvents)
     book: Promise<Book>;
 
-    @ManyToOne(type => LibraryEventType, libraryEventType => libraryEventType.name)
-    name: LibraryEventType;
+    @ManyToOne(type => BorrowType, libraryEventType => BorrowType.name)
+    borrow: BorrowType;
 
     @CreateDateColumn()
     timestamp: Date;

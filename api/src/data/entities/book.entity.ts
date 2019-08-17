@@ -2,6 +2,7 @@ import { PrimaryGeneratedColumn, Column, CreateDateColumn, Entity, OneToMany } f
 import { boolean } from 'joi';
 import { LibraryEvent } from './library-event.entity';
 import { BookReview } from './book-review.entity';
+import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 
 @Entity('book')
 export class Book {
@@ -9,16 +10,16 @@ export class Book {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('nvarchar', {length: 20, unique: true})
-    name: string;
+    @Column('nvarchar', {length: 50, unique: true})
+    title: string;
 
-    @Column('nvarchar', {length: 20})
+    @Column('nvarchar', {length: 50})
     author: string;
 
-    @Column('nvarchar', {length: 10})
+    @Column('nvarchar', {length: 20})
     topic: string;
 
-    @Column('nvarchar', {length: 10})
+    @Column('nvarchar', {length: 20})
     language: string;
 
     @CreateDateColumn()
@@ -27,8 +28,11 @@ export class Book {
     @Column('boolean', {default: false})
     isDeleted: boolean;
 
-    // @                                                     H E L P !!!
-    // average_rating: number;
+    @Column({
+        type: 'enum',
+        enum: RatingTypeEnum,               // Awful / Bad / Average / Good / Excellent
+    })
+    averageRating: RatingTypeEnum;          // Awful / Bad / Average / Good / Excellent
 
     @Column('boolean', {default: false})
     isTaken: boolean;

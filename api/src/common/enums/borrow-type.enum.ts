@@ -1,4 +1,4 @@
-export enum LibraryEventTypeEnum {
+export enum BorrowTypeEnum {
     Taken = 'Taken',
     Returned = 'Returned',
 }

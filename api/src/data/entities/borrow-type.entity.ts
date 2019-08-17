@@ -1,17 +1,17 @@
 import { PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, Entity } from 'typeorm';
 import { LibraryEvent } from './library-event.entity';
-import { LibraryEventTypeEnum } from '../../common/enums/library-event-type.enum';
-@Entity('library_event_type')
-export class LibraryEventType {
+import { BorrowTypeEnum } from '../../common/enums/borrow-type.enum';
+@Entity('borrow_type')
+export class BorrowType {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column({
         type: 'enum',
-        enum: LibraryEventTypeEnum,         // Taken / Returned
+        enum: BorrowTypeEnum,         // Taken / Returned
     })
-    name: LibraryEventTypeEnum;
+    name: BorrowTypeEnum;            // Taken / Returned
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
