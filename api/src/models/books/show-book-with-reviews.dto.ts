@@ -1,7 +1,8 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose, Exclude, Type } from 'class-transformer';
 import { IsString, IsDate, IsBoolean } from 'class-validator';
 import { ShowBookReviewDTO } from '../book-reviews/show-book-review.dto';
 
+@Exclude()
 export class ShowBookWithReviewsDTO {
 
     @Expose()

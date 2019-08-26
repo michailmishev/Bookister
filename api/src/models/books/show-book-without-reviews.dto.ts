@@ -1,7 +1,8 @@
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 import { IsString, IsDate, IsBoolean } from 'class-validator';
 
-export class ShowBookBasicDTO {
+@Exclude()
+export class ShowBookWithoutReviewsDTO {
 
     @Expose()
     @IsString()

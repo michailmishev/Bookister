@@ -18,7 +18,7 @@ export class BookReview {
     @ManyToOne(type => RatingType, ratingType => ratingType.name)
     rating: RatingType;
 
-    @Column('nvarchar', {length: 1000})
+    @Column('nvarchar', {length: 2000})
     comment: string;
 
     @CreateDateColumn()
