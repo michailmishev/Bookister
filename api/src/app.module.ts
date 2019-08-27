@@ -12,6 +12,10 @@ import { ConfigService } from './config/config.service';
 import { APP_FILTER } from '@nestjs/core';
 import { BooksController } from './books/books.controller';
 import { BooksModule } from './books/books.module';
+import { ReviewsController } from './reviews/reviews.controller';
+import { ReviewsService } from './reviews/reviews.service';
+import { ReviewsModule } from './reviews/reviews.module';
+import { BooksService } from './books/books.service';
 
 @Module({
   imports: [
@@ -34,9 +38,10 @@ import { BooksModule } from './books/books.module';
     }),
   }),
     BooksModule,
+    ReviewsModule,
   ],
-  controllers: [AppController, BooksController],
-  providers: [AppService],
+  controllers: [AppController /* , BooksController, ReviewsController */ ],
+  providers: [AppService, ReviewsService,  BooksService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }

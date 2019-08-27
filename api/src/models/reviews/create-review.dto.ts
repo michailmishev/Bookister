@@ -2,7 +2,7 @@ import { IsString, Length, IsEnum } from 'class-validator';
 import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 import { string } from 'joi';
 
-export class CreateBookReviewDTO {
+export class CreateReviewDTO {
 
     @IsEnum(string)                             // (string) IS IT RIGHT ? ? ?
     readonly rating: RatingTypeEnum;

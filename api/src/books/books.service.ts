@@ -6,10 +6,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from '../data/entities/book.entity';
 import { plainToClass } from 'class-transformer';
-import { BookReview } from 'src/data/entities/book-review.entity';
+import { Review } from 'src/data/entities/review.entity';
 import { CreateBookDTO } from 'src/models/books/create-book.dto';
 import { User } from '../data/entities/user.entity';
 import { UserShowDTO } from '../models/user';
+import { ReviewsService } from 'src/reviews/reviews.service';
 
 
 @Injectable()
@@ -18,13 +19,13 @@ export class BooksService {
     public constructor(
         @InjectRepository(Book) private readonly bookRepository: Repository<Book>,
         @InjectRepository(User) private readonly userRepository: Repository<User>,
-        // private readonly bookReviewService: BookReviewService,
+        private readonly reviewsService: ReviewsService,
     ) { }
 
     
 
     async createShowBookDTO(book: Book): Promise<ShowBookWithReviewsDTO> {
-        const reviews = await book.bookReview;
+        const reviews = await book.review;
         const bookDTO = await {
             id: book.id,
             title: book.title,
@@ -35,8 +36,8 @@ export class BooksService {
             averageRating: book.averageRating,
             isTaken: book.isTaken,
             
-            // bookReviews: await Promise.all((bookReviews.filter((bookReview: BookReview) => bookReview.isDeleted === false))
-            //     .map(async (x: BookReviews) => await this.bookReviewService.createBookReviewDTO(x))),
+            reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
+                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
             
         };
         return await plainToClass(ShowBookWithReviewsDTO, bookDTO);
@@ -68,7 +69,7 @@ export class BooksService {
     // timestamp: Date;
     // averageRating: string;
     // isTaken: boolean;
-    // bookReview: ShowBookReviewDTO[];
+    // review: ShowReviewDTO[];
 
 
 

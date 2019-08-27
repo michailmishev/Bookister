@@ -1,7 +1,7 @@
 import { PrimaryGeneratedColumn, Column, CreateDateColumn, Entity, OneToMany } from 'typeorm';
 import { boolean } from 'joi';
 import { LibraryEvent } from './library-event.entity';
-import { BookReview } from './book-review.entity';
+import { Review } from './review.entity';
 import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 
 @Entity('book')
@@ -42,7 +42,7 @@ export class Book {
     @OneToMany(type => LibraryEvent, libraryEvent => libraryEvent.book)
     libraryEvents: Promise<LibraryEvent[]>;
 
-    @OneToMany(type => BookReview, bookReview => bookReview.book)
-    bookReview: Promise<BookReview[]>;
+    @OneToMany(type => Review, review => review.book)
+    review: Promise<Review[]>;
 
 }

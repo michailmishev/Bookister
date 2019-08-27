@@ -1,6 +1,6 @@
 import { Expose, Exclude, Type } from 'class-transformer';
 import { IsString, IsDate, IsBoolean } from 'class-validator';
-import { ShowBookReviewDTO } from '../book-reviews/show-book-review.dto';
+import { ShowReviewDTO } from '../reviews/show-review.dto';
 
 @Exclude()
 export class ShowBookWithReviewsDTO {
@@ -38,7 +38,7 @@ export class ShowBookWithReviewsDTO {
     isTaken: boolean;
 
     @Expose()
-    @Type(() => ShowBookReviewDTO)                  //  BookReviewDTO - NOT Ready yet!
-    bookReview: ShowBookReviewDTO[];
+    @Type(() => ShowReviewDTO)                  //  ReviewDTO - NOT Ready yet!
+    review: ShowReviewDTO[];
 
 }

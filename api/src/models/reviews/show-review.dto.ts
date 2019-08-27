@@ -3,7 +3,7 @@ import { IsString, IsDate } from 'class-validator';
 import { UserShowDTO } from '../user';
 
 @Exclude()
-export class ShowBookReviewDTO {
+export class ShowReviewDTO {
 
     @Expose()
     @IsString()

@@ -3,7 +3,7 @@ import { Banstatus } from './banstatus.entity';
 import { Role } from './role.entity';
 import { LibraryEvent } from './library-event.entity';
 import { type } from 'os';
-import { BookReview } from './book-review.entity';
+import { Review } from './review.entity';
 
 @Entity('user')
 export class User {
@@ -36,7 +36,7 @@ export class User {
     @OneToMany(type => LibraryEvent, libraryEvent => libraryEvent.user)
     libraryEvents: Promise<LibraryEvent>;
 
-    @OneToMany(type => BookReview, bookReview => bookReview.user)
-    bookReview: Promise<BookReview[]>;
+    @OneToMany(type => Review, review => review.user)
+    review: Promise<Review[]>;
 
 }

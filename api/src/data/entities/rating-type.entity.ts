@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { BookReview } from './book-review.entity';
+import { Review } from './review.entity';
 import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 
 @Entity('rating_type')
@@ -16,7 +16,7 @@ export class RatingType {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
-    // @OneToMany(type => BookReview, bookReview => bookReview.rating)
-    // bookReview: BookReview[];
+    // @OneToMany(type => Review, review => review.rating)
+    // review: Review[];
 
 }
