@@ -73,3 +73,41 @@ Request body:
 #### ``DELETE "/session"`` = Terminate user token.
 
   
+## For books:
+
+#### ``GET "/books"`` = get all books.
+
+#### ``POST "/books"`` = create a book. (only admins are authorized!)
+Request body:
+
+```bash
+{
+"title": string,
+"author": string,
+"topic": string,
+"language": string,
+"averageRating": string,
+}
+```
+
+(averageRating will be deleted from here later)
+
+
+#### ``PUT "/books/:bookId"`` = edit a book. (only admins are authorized!)
+Request body:
+
+```bash
+{
+"title": string,
+"author": string,
+"topic": string,
+"language": string,
+"averageRating": string,
+}
+```
+
+(averageRating will be deleted from here later)
+
+
+#### ``DELETE "/books/:bookId"`` = delete a book. (only admins are authorized!)
+
