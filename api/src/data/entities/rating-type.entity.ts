@@ -5,14 +5,21 @@ import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 @Entity('rating_type')
 export class RatingType {
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     id: string;
 
-    @Column({
-        type: 'enum',
-        enum: RatingTypeEnum,        // Awful / Bad / Average / Good / Excellent
-    })
-    name: RatingTypeEnum;
+
+    // @Column({
+    //     type: 'enum',
+    //     enum: RatingTypeEnum,        // Awful / Bad / Average / Good / Excellent
+    // })
+    // name: RatingTypeEnum;
+
+    //or:
+    @Column('nvarchar')
+    name: string;                       // Awful / Bad / Average / Good / Excellent
+
+
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 

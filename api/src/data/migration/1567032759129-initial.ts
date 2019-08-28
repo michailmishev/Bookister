@@ -1,13 +1,13 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class initial1566988089793 implements MigrationInterface {
+export class initial1567032759129 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query("CREATE TABLE `banstatus` (`id` int NOT NULL AUTO_INCREMENT, `isBanned` tinyint NOT NULL DEFAULT 0, `description` varchar(255) NOT NULL DEFAULT 'This user is not banned!', PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `blacklist` (`id` int NOT NULL AUTO_INCREMENT, `token` varchar(255) NOT NULL, `date` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `role` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `rating_type` (`id` varchar(36) NOT NULL, `name` enum ('Awful', 'Bad', 'Average', 'Good', 'Excellent') NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
-        await queryRunner.query("CREATE TABLE `review` (`id` varchar(36) NOT NULL, `comment` varchar(2000) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `isDeleted` tinyint NOT NULL DEFAULT 0, `userId` int NULL, `bookId` varchar(36) NULL, `ratingId` varchar(36) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `rating_type` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("CREATE TABLE `review` (`id` varchar(36) NOT NULL, `comment` varchar(2000) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `isDeleted` tinyint NOT NULL DEFAULT 0, `userId` int NULL, `bookId` varchar(36) NULL, `ratingId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `username` varchar(15) NOT NULL, `password` varchar(255) NOT NULL, `email` varchar(15) NOT NULL, `isDeleted` tinyint NOT NULL DEFAULT 0, `banstatusId` int NULL, UNIQUE INDEX `IDX_78a916df40e02a9deb1c4b75ed` (`username`), UNIQUE INDEX `IDX_e12875dfb3b1d92d7d7c5377e2` (`email`), UNIQUE INDEX `REL_15de78a2ad5e6dbfe54c777d7c` (`banstatusId`), PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `borrow_type` (`id` varchar(36) NOT NULL, `name` enum ('Taken', 'Returned') NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
         await queryRunner.query("CREATE TABLE `library_event` (`id` varchar(36) NOT NULL, `timestamp` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `userId` int NULL, `bookId` varchar(36) NULL, `borrowId` varchar(36) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");
