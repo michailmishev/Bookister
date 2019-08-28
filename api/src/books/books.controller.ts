@@ -37,28 +37,7 @@ export class BooksController {
     ) { }
 
 
-    // CREATE BOOK
-    @Post()
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-        }),
-    )
-    @HttpCode(HttpStatus.CREATED)
-    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
-    async create(
-        @Body() book1: CreateBookDTO,
-    ): Promise<any> {
-        const createdBook: ShowBookWithoutReviewsDTO =  await this.bookService.createNewBook(book1);
-        return {
-            message: 'Book has been submitted successfully!',
-            data: createdBook,
-            };
-
-    }
-
-
+    
 
     // GET ALL BOOKS
     @Get()
@@ -68,6 +47,34 @@ export class BooksController {
         @Query() query: any,
     ) {
         return this.bookService.getAllBooks(query);
+    }
+
+
+
+    // CREATE BOOK
+    @Post()
+    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    @UsePipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true,
+        }),
+    )
+    @HttpCode(HttpStatus.CREATED)
+    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    async create(
+        @IsAdmin() isAdmin: boolean,
+        @Body() book1: CreateBookDTO,
+    ): Promise<any> {
+        if (!isAdmin) {
+            throw new UnauthorizedException('Books can be added only by the admin!');
+        }
+        const createdBook: ShowBookWithoutReviewsDTO =  await this.bookService.createNewBook(book1);
+        return {
+            message: 'Book has been submitted successfully!',
+            data: createdBook,
+            };
+
     }
 
 
