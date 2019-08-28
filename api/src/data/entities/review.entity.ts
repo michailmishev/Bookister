@@ -7,6 +7,7 @@ import { RatingType } from './rating-type.entity';
 export class Review {
 
     @PrimaryGeneratedColumn('uuid')
+    // @PrimaryGeneratedColumn()
     id: string;
 
     @ManyToOne(type => User, user => user.review)

@@ -8,6 +8,7 @@ import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 export class Book {
 
     @PrimaryGeneratedColumn('uuid')
+    // @PrimaryGeneratedColumn()
     id: string;
 
     @Column('nvarchar', {length: 50, unique: true})
@@ -29,7 +30,7 @@ export class Book {
     isDeleted: boolean;
 
 
-    
+
     // @Column({
     //     type: 'enum',
     //     enum: RatingTypeEnum,               // Awful / Bad / Average / Good / Excellent

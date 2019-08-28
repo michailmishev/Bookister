@@ -26,7 +26,7 @@ export class BooksService {
 
     async createShowBookDTO(book: Book): Promise<ShowBookWithReviewsDTO> {
 
-        // const reviews = await book.review;
+        const reviews = await book.review;
 
         const bookDTO = await {
             id: book.id,
@@ -38,8 +38,8 @@ export class BooksService {
             averageRating: book.averageRating,
             isTaken: book.isTaken,
             
-            // reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
-            //     .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
+            reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
+                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
             
         };
         return await plainToClass(ShowBookWithReviewsDTO, bookDTO);

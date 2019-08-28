@@ -33,7 +33,7 @@ export class BooksController {
 
 
 
-    @Post('books')
+    @Post()
     @UsePipes(
         new ValidationPipe({
             transform: true,
@@ -56,7 +56,7 @@ export class BooksController {
 
 
 
-    @Get('books')
+    @Get()
     // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
     @HttpCode(HttpStatus.OK)
     async getBooks(
