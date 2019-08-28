@@ -10,6 +10,7 @@ import {
     Delete,
     Body,
     UseGuards,
+    Query,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from 'src/data/entities/book.entity';
@@ -20,6 +21,7 @@ import { ShowBookWithoutReviewsDTO } from 'src/models/books/show-book-without-re
 import { User } from 'src/data/entities/user.entity';
 import { UserShowDTO } from 'src/models/user';
 import { UsersService } from 'src/core/services/users.service';
+// import { Query } from 'typeorm/driver/Query';
 
 @Controller('books')
 export class BooksController {
@@ -50,6 +52,20 @@ export class BooksController {
             };
 
     }
+
+
+
+
+    @Get('books')
+    // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    @HttpCode(HttpStatus.OK)
+    async getBooks(
+        @Query() query: any,
+    ) {
+        return this.bookService.getAllBooks(query);
+    }
+
+
 
 
 

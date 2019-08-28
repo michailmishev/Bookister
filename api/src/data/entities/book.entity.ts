@@ -28,11 +28,18 @@ export class Book {
     @Column('boolean', {default: false})
     isDeleted: boolean;
 
-    @Column({
-        type: 'enum',
-        enum: RatingTypeEnum,               // Awful / Bad / Average / Good / Excellent
-    })
-    averageRating: RatingTypeEnum;          // Awful / Bad / Average / Good / Excellent
+
+    
+    // @Column({
+    //     type: 'enum',
+    //     enum: RatingTypeEnum,               // Awful / Bad / Average / Good / Excellent
+    // })
+    // averageRating: RatingTypeEnum;          // Awful / Bad / Average / Good / Excellent
+
+    @Column('nvarchar', {length: 20})
+    averageRating: string;
+
+
 
     @Column('boolean', {default: false})
     isTaken: boolean;

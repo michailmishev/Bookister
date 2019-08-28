@@ -21,4 +21,14 @@ export class CreateBookDTO {
     @Length(2, 20)
     readonly language: string;
 
+
+    //
+    @IsNotEmpty()
+    @IsString()
+    @Length(2, 20)
+    readonly averageRating: string;
+    //
+
+
+
 }
