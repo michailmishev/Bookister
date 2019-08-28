@@ -11,6 +11,7 @@ import { CreateBookDTO } from 'src/models/books/create-book.dto';
 import { User } from '../data/entities/user.entity';
 import { UserShowDTO } from '../models/user';
 import { ReviewsService } from 'src/reviews/reviews.service';
+import { UpdateBookDTO } from 'src/models/books/update-book.dto';
 
 
 @Injectable()
@@ -95,21 +96,43 @@ export class BooksService {
 
 
 
-
-
-
-
-
-
-
-
     // getBookById
 
     // createBook
 
     // updateBook
+    async updateBook(id: string, updateBook: UpdateBookDTO): Promise<ShowBookWithoutReviewsDTO> {
+        const bookToBeUpdated: Book = await this.bookRepository.findOne({ id, isDeleted: false });
+        if (!bookToBeUpdated) {
+            return undefined;
+        }
+        const updatedBook: Book = bookToBeUpdated;
+        updatedBook.title = updateBook.title;
+        updatedBook.author = updateBook.author;
+        updatedBook.topic = updateBook.topic;
+        updatedBook.language = updateBook.language;
+        //
+        updatedBook.averageRating  = updateBook.averageRating;      // delete later
+        //
+        const savedBook = await this.bookRepository.save(updatedBook);
+        const bookDTO = await this.createShowBookDTO(savedBook);
+        return plainToClass(ShowBookWithoutReviewsDTO, bookDTO);
+    }
+
+
 
     // deleteBook
+    async deleteBook(id: string): Promise<ShowBookWithoutReviewsDTO> {
+        const bookToBeDeleted: Book = await this.bookRepository.findOne({ id, isDeleted: false });
+        if (!bookToBeDeleted)  {
+            return undefined;
+        }
+        bookToBeDeleted.isDeleted = true;
+        const deletedBook = await this.bookRepository.save(bookToBeDeleted);
+        const bookDTO = await this.createNewBook(deletedBook);
+        return plainToClass(ShowBookWithoutReviewsDTO, bookDTO);
+    }
+
 
     // filterBySort     // name / date / rating
 
