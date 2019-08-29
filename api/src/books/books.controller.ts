@@ -36,9 +36,6 @@ export class BooksController {
         private usersService: UsersService,
     ) { }
 
-
-    
-
     // GET ALL BOOKS
     @Get()
     // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
@@ -48,8 +45,6 @@ export class BooksController {
     ) {
         return this.bookService.getAllBooks(query);
     }
-
-
 
     // CREATE BOOK
     @Post()
@@ -77,9 +72,7 @@ export class BooksController {
 
     }
 
-
-
-    //DELETE BOOK
+    // DELETE BOOK
     @Delete('/:bookId')
     @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
     @HttpCode(HttpStatus.OK)
@@ -100,9 +93,7 @@ export class BooksController {
         };
     }
 
-
-
-    //EDIT BOOK
+    // EDIT BOOK
     @Put('/:bookId')
     @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
     @UsePipes(
@@ -128,7 +119,5 @@ export class BooksController {
             data: updateBook,
         };
     }
-
-
 
 }
