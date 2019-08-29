@@ -49,7 +49,7 @@ Bookister is a Library System, where the users can borrow and return books, rate
 
 ## For users:
 
-#### ``POST "/users"`` = Login / Register user.
+#### ``POST "/users"`` = Register user.
 Request body:
 
 ```bash
@@ -60,7 +60,7 @@ Request body:
 }
 ```
 
-#### ``POST "/session"`` = Validate user.
+#### ``POST "/session"`` = Validate (Login) user.
 Request body:
 
 ```bash
@@ -70,7 +70,7 @@ Request body:
 }
 ```
 
-#### ``DELETE "/session"`` = Terminate user token.
+#### ``DELETE "/session"`` = Terminate user token (Logout).
 
   
 ## For books:
@@ -110,4 +110,39 @@ Request body:
 
 
 #### ``DELETE "/books/:bookId"`` = delete a book. (only admins are authorized!)
+
+
+
+## For reviews:
+
+#### ``POST "/books/:bookId/reviews"`` = create review.
+Request body:
+
+```bash
+{
+"rating": RatingType,
+"comment": string
+}
+```
+
+(RatingType is enum with the following string options: Awful / Bad / Average / Good / Excellent )
+
+
+#### ``PUT "/books/:bookId/reviews/:reviewId"`` = edit review. (only the author and admin can edit)
+Request body:
+
+```bash
+{
+"rating": RatingType,
+"comment": string
+}
+```
+
+(RatingType is enum with the following string options: Awful / Bad / Average / Good / Excellent )
+
+#### ``DELETE "/books/:bookId/reviews/:reviewId"`` = delete review. (only the author and admin can delete)
+
+
+
+
 
