@@ -16,6 +16,9 @@ import { ReviewsController } from './reviews/reviews.controller';
 import { ReviewsService } from './reviews/reviews.service';
 import { ReviewsModule } from './reviews/reviews.module';
 import { BooksService } from './books/books.service';
+import { LibraryEventsController } from './library-events/library-events.controller';
+import { LibraryEventsService } from './library-events/library-events.service';
+import { LibraryEventsModule } from './library-events/library-events.module';
 
 @Module({
   imports: [
@@ -39,9 +42,10 @@ import { BooksService } from './books/books.service';
   }),
     BooksModule,
     ReviewsModule,
+    LibraryEventsModule,
   ],
-  controllers: [AppController /* , BooksController, ReviewsController */ ],
-  providers: [AppService, ReviewsService,  BooksService],
+  controllers: [AppController /* , LibraryEventsController, BooksController, ReviewsController */ ],
+  providers: [AppService, ReviewsService,  BooksService, LibraryEventsService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }
