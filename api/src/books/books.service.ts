@@ -13,7 +13,6 @@ import { UserShowDTO } from '../models/user';
 import { ReviewsService } from 'src/reviews/reviews.service';
 import { UpdateBookDTO } from 'src/models/books/update-book.dto';
 
-
 @Injectable()
 export class BooksService {
 
@@ -23,12 +22,8 @@ export class BooksService {
         private readonly reviewsService: ReviewsService,
     ) { }
 
-    
-
     async createShowBookDTO(book: Book): Promise<ShowBookWithReviewsDTO> {
-
-        const reviews = await book.review;
-
+        const reviews = await book.review;          // !
         const bookDTO = await {
             id: book.id,
             title: book.title,
@@ -38,50 +33,18 @@ export class BooksService {
             timestamp: book.timestamp,
             averageRating: book.averageRating,
             isTaken: book.isTaken,
-            
             reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
-                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
-            
+                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),                   // !!!
         };
         return await plainToClass(ShowBookWithReviewsDTO, bookDTO);
     }
 
-
-
-
-
-
-
     async createNewBook(createBook: CreateBookDTO): Promise<ShowBookWithoutReviewsDTO> {
         const newBook = await this.bookRepository.create(createBook);
-        // const author = await this.userRepository.findOne({ username: user.username });
-        // newBook.author = Promise.resolve(author);
         const createdBook = await this.bookRepository.save(newBook);
         const bookDTO = await this.createShowBookDTO(createdBook);
         return plainToClass(ShowBookWithoutReviewsDTO, bookDTO);
     }
-
-
-
-
-    // id: string;
-    // title: string;
-    // author: string;
-    // topic: string;
-    // laguage: string;
-    // timestamp: Date;
-    // averageRating: string;
-    // isTaken: boolean;
-    // review: ShowReviewDTO[];
-
-
-
-
-
-
-
-    // getAllBooks
-
 
     async getAllBooks(Query?): Promise<ShowBookWithoutReviewsDTO[]> {
         const allBooks = await this.bookRepository.find({ isDeleted: false });
@@ -93,14 +56,6 @@ export class BooksService {
         return await plainToClass(ShowBookWithReviewsDTO, await bookDTO);
     }
 
-
-
-
-    // getBookById
-
-    // createBook
-
-    // updateBook
     async updateBook(id: string, updateBook: UpdateBookDTO): Promise<ShowBookWithoutReviewsDTO> {
         const bookToBeUpdated: Book = await this.bookRepository.findOne({ id, isDeleted: false });
         if (!bookToBeUpdated) {
@@ -119,9 +74,6 @@ export class BooksService {
         return plainToClass(ShowBookWithoutReviewsDTO, bookDTO);
     }
 
-
-
-    // deleteBook
     async deleteBook(id: string): Promise<ShowBookWithoutReviewsDTO> {
         const bookToBeDeleted: Book = await this.bookRepository.findOne({ id, isDeleted: false });
         if (!bookToBeDeleted)  {
@@ -133,6 +85,17 @@ export class BooksService {
         return plainToClass(ShowBookWithoutReviewsDTO, bookDTO);
     }
 
+    // findBookTitleInTheDatabase - needed by creating a book for checking if the book already exists
+    async findBookTitleInTheDatabase(title: string): Promise<string> | undefined {
+        const bookWithSuchTitle: Book = await this.bookRepository.findOne({ title });
+        if (!!bookWithSuchTitle) {
+            return bookWithSuchTitle.title;
+        }
+    }
+
+    // getBookById
+
+    // createBook
 
     // filterBySort     // name / date / rating
 

@@ -14,6 +14,7 @@ import {
     Param,
     NotFoundException,
     UnauthorizedException,
+    BadRequestException,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from 'src/data/entities/book.entity';
@@ -64,6 +65,12 @@ export class BooksController {
         if (!isAdmin) {
             throw new UnauthorizedException('Books can be added only by the admin!');
         }
+
+        const bookExistsInTheDatabase = await this.bookService.findBookTitleInTheDatabase(book1.title);
+        if (bookExistsInTheDatabase) {
+            throw new BadRequestException('This book already exists!');
+        }
+
         const createdBook: ShowBookWithoutReviewsDTO =  await this.bookService.createNewBook(book1);
         return {
             message: 'Book has been submitted successfully!',
