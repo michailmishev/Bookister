@@ -6,8 +6,8 @@ import { RatingType } from './rating-type.entity';
 @Entity('review')
 export class Review {
 
-    @PrimaryGeneratedColumn('uuid')
-    // @PrimaryGeneratedColumn()
+    // @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     id: string;
 
     @ManyToOne(type => User, user => user.review)

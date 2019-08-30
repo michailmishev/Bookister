@@ -4,14 +4,16 @@ import { BorrowTypeEnum } from '../../common/enums/borrow-type.enum';
 @Entity('borrow_type')
 export class BorrowType {
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     id: string;
 
-    @Column({
-        type: 'enum',
-        enum: BorrowTypeEnum,         // Taken / Returned
-    })
-    name: BorrowTypeEnum;            // Taken / Returned
+    // @Column({
+    //     type: 'enum',
+    //     enum: BorrowTypeEnum,         // Taken / Returned
+    // })
+    // name: BorrowTypeEnum;            // Taken / Returned
+    @Column('nvarchar')
+    name: string;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 

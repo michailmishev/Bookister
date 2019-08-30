@@ -7,7 +7,8 @@ import { BorrowType } from './borrow-type.entity';
 @Entity('library_event')
 export class LibraryEvent {
 
-    @PrimaryGeneratedColumn('uuid')
+    // @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     id: string;
 
     @ManyToOne(type => User, user => user.libraryEvents)
@@ -16,7 +17,7 @@ export class LibraryEvent {
     @ManyToOne(type => Book, book => book.libraryEvents)
     book: Promise<Book>;
 
-    @ManyToOne(type => BorrowType, libraryEventType => BorrowType.name)
+    @ManyToOne(type => BorrowType, borrowType => borrowType.name)
     borrow: BorrowType;
 
     @CreateDateColumn()

@@ -15,7 +15,7 @@ export class RatingType {
     // })
     // name: RatingTypeEnum;
 
-    //or:
+    // or:
     @Column('nvarchar')
     name: string;                       // Awful / Bad / Average / Good / Excellent
 

@@ -7,8 +7,8 @@ import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
 @Entity('book')
 export class Book {
 
-    @PrimaryGeneratedColumn('uuid')
-    // @PrimaryGeneratedColumn()
+    // @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column('nvarchar', {length: 50, unique: true})

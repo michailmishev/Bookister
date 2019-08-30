@@ -14,9 +14,9 @@ export class ShowLibraryEventDTO {
     @Type(() => UserShowDTO)
     user: UserShowDTO;
 
-    @Expose()
-    @Type(() => ShowBookWithoutReviewsDTO )                     // ? ? ? Do I need book? Is it right tht way?
-    book: ShowBookWithoutReviewsDTO;
+    // @Expose()
+    // @Type(() => ShowBookWithoutReviewsDTO )                     // ? ? ? Do I need book? Is it right tht way?
+    // book: ShowBookWithoutReviewsDTO;
 
     @Expose()
     @IsString()

@@ -7,15 +7,19 @@ import { async } from 'rxjs/internal/scheduler/async';
 import { BorrowType } from 'src/data/entities/borrow-type.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateLibraryEventDTO } from 'src/models/library-events/create-library-event.dto';
+import { UserShowDTO } from 'src/models/user';
+import { Book } from 'src/data/entities/book.entity';
+import { User } from 'src/data/entities/user.entity';
 
 @Injectable()
 export class LibraryEventsService {
 
     constructor(
-        // @InjectRepository(Review) private readonly reviewsRepository: Repository<Review>,
-        // @InjectRepository(Book) private readonly booksRepository: Repository<Book>,
-        // @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        @InjectRepository(Book) private readonly booksRepository: Repository<Book>,
+        @InjectRepository(User) private readonly usersRepository: Repository<User>,
         @InjectRepository(BorrowType) private readonly borrowTypesRepository: Repository<BorrowType>,
+        @InjectRepository(LibraryEvent) private readonly libraryEventsRepository: Repository<LibraryEvent>,
     ) { }
 
 
@@ -23,16 +27,14 @@ export class LibraryEventsService {
         const libraryEventDTO = {
             id: libraryEvent.id,
             user: await libraryEvent.user,
-            book: await libraryEvent.book,
             borrow: libraryEvent.borrow,
             timestamp: libraryEvent.timestamp,
         };
         return await plainToClass(ShowLibraryEventDTO, libraryEventDTO);
     }
 
-
     async checkForBorrowTypesAndCreateThem(): Promise<void> {
-        const borrowTypes = [ BorrowTypeEnum.Taken, BorrowTypeEnum.Taken ];
+        const borrowTypes = [ BorrowTypeEnum.Taken, BorrowTypeEnum.Returned ];
         await borrowTypes.forEach(async (borrowType) => {
             if (!(await this.borrowTypesRepository.findOne({ name: borrowType }))) {
                 const borrowTypeToBeCreated = await this.borrowTypesRepository.create({ name: borrowType });
@@ -42,39 +44,41 @@ export class LibraryEventsService {
     }
 
 
-    async takeBook() {
-
+    async takeBook(newLibraryEvent: CreateLibraryEventDTO, bookId: string, user: UserShowDTO): Promise<ShowLibraryEventDTO> {
+        const libraryEventToBeCreated = await this.libraryEventsRepository.create(newLibraryEvent);
+        const bookOfTheLibraryEvent = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
+        if (!bookOfTheLibraryEvent) {
+            return undefined;
+        }
+        const author = await this.usersRepository.findOne({ username: user.username });
+        libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
+        libraryEventToBeCreated.user = Promise.resolve(author);
+        const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
+        return this.createLibraryEventDTO(createdLibraryEvent);
     }
 
 
-    async returnBook() {
 
-    }
+
+
+
+    // async returnBook() {
+
+    // }
     
 
-    async checkIfBookIsTaken() {
+    // async checkIfBookIsTaken() {
 
-    }
-
-
-    async checkIfBookIsTakenByTheUser() {
-
-    }
-
-
-
-    // async createNewReview(createReview: CreateReviewDTO, bookId: string, user: UserShowDTO): Promise<ShowReviewDTO> {
-    //     const reviewToBeCreated = await this.reviewsRepository.create(createReview);
-    //     const bookOfTheReview = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
-    //     if (!bookOfTheReview) {
-    //         return undefined;
-    //     }
-    //     const author = await this.usersRepository.findOne({ username: user.username });
-    //     reviewToBeCreated.book = Promise.resolve(bookOfTheReview);
-    //     reviewToBeCreated.user = Promise.resolve(author);
-    //     const createdReview = await this.reviewsRepository.save(reviewToBeCreated);
-    //     return this.createReviewDTO(createdReview);
     // }
+
+
+    // async checkIfBookIsTakenByTheUser() {
+
+    // }
+
+
+
+  
 
 
 
