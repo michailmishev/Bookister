@@ -34,7 +34,7 @@ export class BooksService {
             averageRating: book.averageRating,
             isTaken: book.isTaken,
             reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
-                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),                   // !!!
+                .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
         };
         return await plainToClass(ShowBookWithReviewsDTO, bookDTO);
     }
@@ -54,6 +54,16 @@ export class BooksService {
             return await plainToClass(ShowBookWithReviewsDTO, (await bookDTO).slice(0, +newkey));
         }
         return await plainToClass(ShowBookWithReviewsDTO, await bookDTO);
+    }
+
+    // show book with ist reviews:
+    async getBookById(id: string): Promise<ShowBookWithReviewsDTO> | undefined {
+        const book = await this.bookRepository.findOne({ id, isDeleted: false });
+        if (!book) {
+            return undefined;
+        }
+        const bookDTO = await this.createShowBookDTO(book);
+        return plainToClass(ShowBookWithReviewsDTO, bookDTO);
     }
 
     async updateBook(id: string, updateBook: UpdateBookDTO): Promise<ShowBookWithoutReviewsDTO> {
@@ -92,10 +102,6 @@ export class BooksService {
             return bookWithSuchTitle.title;
         }
     }
-
-    // getBookById
-
-    // createBook
 
     // filterBySort     // name / date / rating
 

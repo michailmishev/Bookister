@@ -30,12 +30,11 @@ export class Book {
     isDeleted: boolean;
 
 
-
     // @Column({
     //     type: 'enum',
     //     enum: RatingTypeEnum,               // Awful / Bad / Average / Good / Excellent
     // })
-    // averageRating: RatingTypeEnum;          // Awful / Bad / Average / Good / Excellent
+    // averageRating: RatingTypeEnum;
 
     @Column('nvarchar', {length: 20})
     averageRating: string;

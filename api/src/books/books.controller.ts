@@ -27,6 +27,7 @@ import { UserShowDTO } from 'src/models/user';
 import { UsersService } from 'src/core/services/users.service';
 import { IsAdmin } from 'src/common/decorators/is-admin.decorator';
 import { UpdateBookDTO } from 'src/models/books/update-book.dto';
+import { async } from 'rxjs/internal/scheduler/async';
 // import { Query } from 'typeorm/driver/Query';
 
 @Controller('books')
@@ -45,6 +46,20 @@ export class BooksController {
         @Query() query: any,
     ) {
         return this.bookService.getAllBooks(query);
+    }
+
+    // GET A SPECIFIC BOOK WITH ITS REVIEWS
+    @Get('/:bookId')
+    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    @HttpCode(HttpStatus.OK)
+    async getBookWithDetails(
+        @Param('bookId') bookId: string,
+    ) {
+        const book = await this.bookService.getBookById(bookId);
+        if (!book) {
+            throw new NotFoundException(`Book does not exist or it has been deleted`);
+        }
+        return book;
     }
 
     // CREATE BOOK
