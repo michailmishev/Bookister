@@ -33,7 +33,7 @@ export class BooksService {
             timestamp: book.timestamp,
             averageRating: book.averageRating,
             isTaken: book.isTaken,
-            reviews: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
+            review: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
                 .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
         };
         return await plainToClass(ShowBookWithReviewsDTO, bookDTO);
