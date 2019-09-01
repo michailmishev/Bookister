@@ -23,7 +23,9 @@ export class RatingType {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
+ /// --------------------------   
     // @OneToMany(type => Review, review => review.rating)
     // review: Review[];
+ /// ----------------------
 
 }

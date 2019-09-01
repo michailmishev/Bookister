@@ -62,10 +62,29 @@ export class LibraryEventsService {
 
 
 
-    // async returnBook() {
+    async returnBook(libraryEvent2: CreateLibraryEventDTO, libraryEventId: string, user: any): Promise<ShowLibraryEventDTO> {
+        const libraryEventToBeUpdated = await this.libraryEventsRepository.findOne({ id: libraryEventId });
+        if (!libraryEventToBeUpdated) {
+            return undefined;
+        }
+        libraryEventToBeUpdated.borrow = libraryEvent2.borrow;
+        const updatedLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeUpdated);
+        return this.createLibraryEventDTO(updatedLibraryEvent);
+    }
 
-    // }
+
+
+    async showLibraryEvent(libraryEventId: string): Promise<ShowLibraryEventDTO | undefined> {
+        const libraryEvent = await this.libraryEventsRepository.findOne({ id: libraryEventId });
+        if (!!libraryEvent) {
+            return this.createLibraryEventDTO(libraryEvent);
+        } else {
+            return undefined;
+        }
+    }
     
+
+
 
     // async checkIfBookIsTaken() {
 
