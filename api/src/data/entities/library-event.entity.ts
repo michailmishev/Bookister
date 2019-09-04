@@ -1,8 +1,8 @@
-import { PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Entity } from 'typeorm';
+import { PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Entity, Column } from 'typeorm';
 import { User } from './user.entity';
 // import { type } from 'os';
 import { Book } from './book.entity';
-import { BorrowType } from './borrow-type.entity';
+import { BorrowTypeEnum } from 'src/common/enums/borrow-type.enum';
 
 @Entity('library_event')
 export class LibraryEvent {
@@ -17,8 +17,16 @@ export class LibraryEvent {
     @ManyToOne(type => Book, book => book.libraryEvents)
     book: Promise<Book>;
 
-    @ManyToOne(type => BorrowType, borrowType => borrowType.name)
-    borrow: BorrowType;
+    //
+    // @Column({
+    //     type: 'enum',
+    //     enum: BorrowTypeEnum,         // Taken / Returned
+    // })
+    // borrowType: BorrowTypeEnum;            // Taken / Returned
+    //
+    @Column('nvarchar')
+    borrowType: string;
+    //
 
     @CreateDateColumn()
     timestamp: Date;

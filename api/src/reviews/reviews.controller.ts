@@ -43,7 +43,7 @@ export class ReviewsController {
         @Param('bookId') bookId: string,
         @Body() review1: CreateReviewDTO,
     ): Promise<any> {
-        await this.reviewsService.checkForRatingTypesAndCreateThem();
+        // await this.reviewsService.checkForRatingTypesAndCreateThem();
         const createdReview = await this.reviewsService.createNewReview(review1, bookId, user);
         if (!createdReview) {
             throw new NotFoundException('This book was not found.');

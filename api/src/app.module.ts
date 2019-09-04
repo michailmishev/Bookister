@@ -45,7 +45,7 @@ import { LibraryEventsModule } from './library-events/library-events.module';
     LibraryEventsModule,
   ],
   controllers: [AppController /* , LibraryEventsController, BooksController, ReviewsController */ ],
-  providers: [AppService, ReviewsService,  BooksService, LibraryEventsService],
+  providers: [AppService, ReviewsService,  BooksService,  LibraryEventsService  ],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }

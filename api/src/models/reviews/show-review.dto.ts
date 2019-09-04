@@ -1,6 +1,8 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsString, IsDate } from 'class-validator';
+import { IsString, IsDate, IsEnum } from 'class-validator';
 import { UserShowDTO } from '../user';
+import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
+import { string } from 'joi';
 
 @Exclude()
 export class ShowReviewDTO {
@@ -13,9 +15,15 @@ export class ShowReviewDTO {
     @Type(() => UserShowDTO)
     user: UserShowDTO;
 
+    //
     @Expose()
     @IsString()
-    rating: string;
+    rating: RatingTypeEnum;
+    //
+    // @Expose()
+    // @IsEnum(string)
+    // ratingType: RatingTypeEnum;
+    //
 
     @Expose()
     @IsString()

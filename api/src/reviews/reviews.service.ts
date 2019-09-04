@@ -6,8 +6,8 @@ import { Book } from 'src/data/entities/book.entity';
 import { User } from '../data/entities/user.entity';
 import { ShowReviewDTO } from 'src/models/reviews/show-review.dto';
 import { plainToClass } from 'class-transformer';
-import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
-import { RatingType } from 'src/data/entities/rating-type.entity';
+// import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
+// import { RatingType } from 'src/data/entities/rating-type.entity';
 import { CreateReviewDTO } from 'src/models/reviews/create-review.dto';
 import { UserShowDTO } from 'src/models/user';
 
@@ -17,29 +17,29 @@ export class ReviewsService {
         @InjectRepository(Review) private readonly reviewsRepository: Repository<Review>,
         @InjectRepository(Book) private readonly booksRepository: Repository<Book>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
-        @InjectRepository(RatingType) private readonly ratingTypesRepository: Repository<RatingType>,
+        // @InjectRepository(RatingType) private readonly ratingTypesRepository: Repository<RatingType>,
     ) { }
 
     async createReviewDTO(review: Review): Promise<ShowReviewDTO> {
         const reviewDTO = {
             id: review.id,
             user: await review.user,
-            rating: review.rating,
+            rating: review.ratingType,
             comment: review.comment,
             timestamp: review.timestamp,
         };
         return await plainToClass(ShowReviewDTO, reviewDTO);
     }
 
-    async checkForRatingTypesAndCreateThem(): Promise<void> {
-        const ratingTypes = [ RatingTypeEnum.Awful, RatingTypeEnum.Bad, RatingTypeEnum.Average, RatingTypeEnum.Good, RatingTypeEnum.Excellent];
-        await ratingTypes.forEach(async (ratingType: string) => {
-            if (!(await this.ratingTypesRepository.findOne({ name: ratingType }))) {
-                const ratingTypeToBeCreated = await this.ratingTypesRepository.create({ name: ratingType });
-                await this.ratingTypesRepository.save(ratingTypeToBeCreated);
-            }
-        });
-    }
+    // async checkForRatingTypesAndCreateThem(): Promise<void> {
+    //     const ratingTypes = [ RatingTypeEnum.Awful, RatingTypeEnum.Bad, RatingTypeEnum.Average, RatingTypeEnum.Good, RatingTypeEnum.Excellent];
+    //     await ratingTypes.forEach(async (ratingType: string) => {
+    //         if (!(await this.ratingTypesRepository.findOne({ name: ratingType }))) {
+    //             const ratingTypeToBeCreated = await this.ratingTypesRepository.create({ name: ratingType });
+    //             await this.ratingTypesRepository.save(ratingTypeToBeCreated);
+    //         }
+    //     });
+    // }
 
     async createNewReview(createReview: CreateReviewDTO, bookId: string, user: UserShowDTO): Promise<ShowReviewDTO> {
         const reviewToBeCreated = await this.reviewsRepository.create(createReview);
@@ -60,7 +60,7 @@ export class ReviewsService {
             return undefined;
         }
         reviewToBeUpdated.comment = review.comment;
-        reviewToBeUpdated.rating = review.rating;
+        reviewToBeUpdated.ratingType = review.rating;
         const updatedReview = await this.reviewsRepository.save(reviewToBeUpdated);
         return this.createReviewDTO(updatedReview);
     }

@@ -1,7 +1,7 @@
 import { PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Entity, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 import { User } from './user.entity';
 import { Book } from './book.entity';
-import { RatingType } from './rating-type.entity';
+import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
 
 @Entity('review')
 export class Review {
@@ -17,20 +17,15 @@ export class Review {
     book: Promise<Book>;
 
     //
-    @ManyToOne(type => RatingType, ratingType => ratingType.name)
-    rating: RatingType;
+    // @Column({
+    //     type: 'enum',
+    //     enum: RatingTypeEnum,        // Awful / Bad / Average / Good / Excellent
+    // })
+    // ratingType: RatingTypeEnum;
     //
-    // @ManyToOne(type => RatingType, ratingType => ratingType.name, { eager: true })
-    // rating: RatingType[];
-    // --------------
-    // @JoinColumn()
-    // @ManyToOne(type => RatingType, ratingType => ratingType.name)
-    // rating: Promise<RatingType>;
+    @Column('nvarchar')
+    ratingType: string;
     //
-//     { eager : true })
-// post: Post[ ];   
-    //
-
 
     @Column('nvarchar', {length: 2000})
     comment: string;

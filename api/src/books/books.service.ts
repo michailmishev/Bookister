@@ -51,9 +51,9 @@ export class BooksService {
         const bookDTO = Promise.all(allBooks.map(async (x: Book) => await this.createShowBookDTO(x)));
         const newkey = Object.keys(Query).toString();
         if (!!newkey) {
-            return await plainToClass(ShowBookWithReviewsDTO, (await bookDTO).slice(0, +newkey));
+            return await plainToClass(ShowBookWithoutReviewsDTO, (await bookDTO).slice(0, +newkey));
         }
-        return await plainToClass(ShowBookWithReviewsDTO, await bookDTO);
+        return await plainToClass(ShowBookWithoutReviewsDTO, await bookDTO);
     }
 
     // show book with ist reviews:

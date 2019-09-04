@@ -18,76 +18,110 @@ export class LibraryEventsController {
     ) { }
 
 
+    
+    //
+    // @Post('/:bookId/libraryEvents')
+    // @UsePipes(
+    //     new ValidationPipe({
+    //         transform: true,
+    //         whitelist: true,
+    //     }),
+    // )
+    // async takeOrReturnBook(
+    //     @User() user: UserShowDTO,
+    //     @Param('bookId') bookId: string,
+    //     @Body() libraryEvent1: CreateLibraryEventDTO,
+    // ): Promise<any> {
+    //     await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
+    //     const createdLibraryEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
+    //     if (!createdLibraryEvent) {
+    //             throw new NotFoundException('This book was not found.');
+    //     }
+    //     // if book is taken: ...
+    //     return {
+    //         message: 'Book has been taken successfully!',
+    //         data: createdLibraryEvent,
+    //     };
+    // }
+    //
 
-    @Post('/:bookId/libraryEvents')
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-        }),
-    )
-    async takeBook(
-        @User() user: UserShowDTO,
-        @Param('bookId') bookId: string,
-        @Body() libraryEvent1: CreateLibraryEventDTO,
-    ): Promise<any> {
-        await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
-        const createdLibraryEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
-        if (!createdLibraryEvent) {
-                throw new NotFoundException('This book was not found.');
-        }
-        // if book is taken: ...
-        return {
-            message: 'Book has been taken successfully!',
-            data: createdLibraryEvent,
-        };
-    }
+    
+
+
+
+
+
+
+
+    // @Post('/:bookId/libraryEvents')
+    // @HttpCode(HttpStatus.OK)
+    // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    // @UsePipes(
+    //     new ValidationPipe({
+    //         transform: true,
+    //         whitelist: true,
+    //     }),
+    // )
+    // async takeBook(
+    //     @User() user: UserShowDTO,
+    //     @Param('bookId') bookId: string,
+    //     @Body() libraryEvent1: CreateLibraryEventDTO,
+    // ): Promise<any> {
+    //     await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
+    //     const createdLibraryEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
+    //     if (!createdLibraryEvent) {
+    //             throw new NotFoundException('This book was not found.');
+    //     }
+    //     // if book is taken: ...
+    //     return {
+    //         message: 'Book has been taken successfully!',
+    //         data: createdLibraryEvent,
+    //     };
+    // }
 
 
     
-    @Put('/:bookId/libraryEvents/:libraryEventId')
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-        }),
-    )
-    async returnBook(
-        @User() user: UserShowDTO,
-        @Param('bookId') bookId: string,
-        @Param('libraryEventId') libraryEventId: string,
-        @Body() libraryEvent2: UpdateLibraryEventDTO,
-    ): Promise<any> {
-        const libraryEventToBeUpdated = this.showLibraryEvent(libraryEventId);
-        if (!libraryEventToBeUpdated) {
-            throw new NotFoundException('LibraryEvent not found!');
-        } else if ((await libraryEventToBeUpdated).user.username !== user.username) {
-            throw new UnauthorizedException('Unauthorized operation (Book is not taken by the current user)!');
-        }
-        const createdLibraryEvent = await this.libraryEventsService.returnBook(libraryEvent2, libraryEventId, user);
-        return {
-            message: 'Book has been returned successfully!',
-            data: createdLibraryEvent,
-        };
-    }
+    // @Put('/:bookId/libraryEvents/:libraryEventId')
+    // @HttpCode(HttpStatus.OK)
+    // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    // @UsePipes(
+    //     new ValidationPipe({
+    //         transform: true,
+    //         whitelist: true,
+    //     }),
+    // )
+    // async returnBook(
+    //     @User() user: UserShowDTO,
+    //     @Param('bookId') bookId: string,
+    //     @Param('libraryEventId') libraryEventId: string,
+    //     @Body() libraryEvent2: UpdateLibraryEventDTO,
+    // ): Promise<any> {
+    //     const libraryEventToBeUpdated = this.showLibraryEvent(libraryEventId);
+    //     if (!libraryEventToBeUpdated) {
+    //         throw new NotFoundException('LibraryEvent not found!');
+    //     } else if ((await libraryEventToBeUpdated).user.username !== user.username) {
+    //         throw new UnauthorizedException('Unauthorized operation (Book is not taken by the current user)!');
+    //     }
+    //     const createdLibraryEvent = await this.libraryEventsService.returnBook(libraryEvent2, libraryEventId, user);
+    //     return {
+    //         message: 'Book has been returned successfully!',
+    //         data: createdLibraryEvent,
+    //     };
+    // }
 
 
-    @Get('/:bookId/libraryEvents/:libraryEventId')
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
-    async showLibraryEvent(
-        @Param('libraryEventId') libraryEventId: string,
-    ): Promise<ShowLibraryEventDTO> {
-        const libraryEvent3 = await this.libraryEventsService.showLibraryEvent(libraryEventId);
-        if (!libraryEvent3) {
-            throw new NotFoundException('LibraryEvent not found!');
-        }
-        return await libraryEvent3;
-    }
+    // @Get('/:bookId/libraryEvents/:libraryEventId')
+    // @HttpCode(HttpStatus.OK)
+    // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
+    // async showLibraryEvent(
+    //     @Param('libraryEventId') libraryEventId: string,
+    // ): Promise<ShowLibraryEventDTO> {
+    //     const libraryEvent3 = await this.libraryEventsService.showLibraryEvent(libraryEventId);
+    //     if (!libraryEvent3) {
+    //         throw new NotFoundException('LibraryEvent not found!');
+    //     }
+    //     return await libraryEvent3;
+    // }
 
 
 }
