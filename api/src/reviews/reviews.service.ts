@@ -60,7 +60,7 @@ export class ReviewsService {
             return undefined;
         }
         reviewToBeUpdated.comment = review.comment;
-        reviewToBeUpdated.ratingType = review.rating;
+        reviewToBeUpdated.ratingType = review.ratingType;
         const updatedReview = await this.reviewsRepository.save(reviewToBeUpdated);
         return this.createReviewDTO(updatedReview);
     }
@@ -86,6 +86,21 @@ export class ReviewsService {
 
 
     // userAlreadyReviewedThisBook
+    async userAlreadyReviewedThisBook(bookId: string, autor: any): Promise<string> | undefined {
+        const reviewFromThisUserForThatBook: Review = await this.reviewsRepository.findOne({ where:
+            { book: bookId, user: autor }
+        });
+        if (!!reviewFromThisUserForThatBook) {
+            return 'reviewFromThisUserForThatBookAlreadyExist';
+        }
+    }
+
+    
+
+
+
+    // userHasReturnedThisBook
+
 
 
 }

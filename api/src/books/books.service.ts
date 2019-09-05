@@ -77,7 +77,7 @@ export class BooksService {
         updatedBook.topic = updateBook.topic;
         updatedBook.language = updateBook.language;
         //
-        updatedBook.averageRating  = updateBook.averageRating;      // delete later
+        // updatedBook.averageRating  = updateBook.averageRating;      // delete later
         //
         const savedBook = await this.bookRepository.save(updatedBook);
         const bookDTO = await this.createShowBookDTO(savedBook);

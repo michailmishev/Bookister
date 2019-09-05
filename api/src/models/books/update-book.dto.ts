@@ -23,10 +23,10 @@ export class UpdateBookDTO {
 
 
     //
-    @IsNotEmpty()
-    @IsString()
-    @Length(2, 20)
-    readonly averageRating: string;
+    // @IsNotEmpty()
+    // @IsString()
+    // @Length(2, 20)
+    // readonly averageRating: string;
     //
 
 

@@ -10,7 +10,8 @@ import { Controller,
     Put,
     UnauthorizedException,
     Get,
-    Delete } from '@nestjs/common';
+    Delete, 
+    BadRequestException} from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
@@ -44,10 +45,17 @@ export class ReviewsController {
         @Body() review1: CreateReviewDTO,
     ): Promise<any> {
         // await this.reviewsService.checkForRatingTypesAndCreateThem();
+
+        const reviewFromThisUserForThatBook = await this.reviewsService.userAlreadyReviewedThisBook(bookId, user);
+        if (reviewFromThisUserForThatBook) {
+            throw new BadRequestException('You have already left review for this book!');
+        }
+
         const createdReview = await this.reviewsService.createNewReview(review1, bookId, user);
         if (!createdReview) {
             throw new NotFoundException('This book was not found.');
         }
+
         return {
             message: 'Review has been submitted successfully!',
             data: createdReview,
