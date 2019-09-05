@@ -1,7 +1,9 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsString, IsDate } from 'class-validator';
+import { IsString, IsDate, IsEnum } from 'class-validator';
 import { UserShowDTO } from '../user';
 import { ShowBookWithoutReviewsDTO } from '../books/show-book-without-reviews.dto';
+import { BorrowTypeEnum } from '../../../src/common/enums/borrow-type.enum';
+import { string } from 'joi';
 
 @Exclude()
 export class ShowLibraryEventDTO {
@@ -18,9 +20,13 @@ export class ShowLibraryEventDTO {
     // @Type(() => ShowBookWithoutReviewsDTO )                     // ? ? ? Do I need book? Is it right tht way?
     // book: ShowBookWithoutReviewsDTO;
 
+    // @Expose()
+    // @IsString()
+    // borrow: string;
+    //
     @Expose()
-    @IsString()
-    borrow: string;
+    @IsEnum(string)
+    borrow: BorrowTypeEnum;
 
     @Expose()
     @IsDate()

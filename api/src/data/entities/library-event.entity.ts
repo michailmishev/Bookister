@@ -2,7 +2,7 @@ import { PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Entity, Column } f
 import { User } from './user.entity';
 // import { type } from 'os';
 import { Book } from './book.entity';
-import { BorrowTypeEnum } from 'src/common/enums/borrow-type.enum';
+import { BorrowTypeEnum } from '../../../src/common/enums/borrow-type.enum';
 
 @Entity('library_event')
 export class LibraryEvent {
@@ -18,14 +18,14 @@ export class LibraryEvent {
     book: Promise<Book>;
 
     //
-    // @Column({
-    //     type: 'enum',
-    //     enum: BorrowTypeEnum,         // Taken / Returned
-    // })
-    // borrowType: BorrowTypeEnum;            // Taken / Returned
+    @Column({
+        type: 'enum',
+        enum: BorrowTypeEnum,         // Taken / Returned
+    })
+    borrowType: BorrowTypeEnum;            // Taken / Returned
     //
-    @Column('nvarchar')
-    borrowType: string;
+    // @Column('nvarchar')
+    // borrowType: string;
     //
 
     @CreateDateColumn()
