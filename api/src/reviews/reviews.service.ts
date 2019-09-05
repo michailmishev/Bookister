@@ -10,6 +10,7 @@ import { plainToClass } from 'class-transformer';
 // import { RatingType } from 'src/data/entities/rating-type.entity';
 import { CreateReviewDTO } from 'src/models/reviews/create-review.dto';
 import { UserShowDTO } from 'src/models/user';
+import { LibraryEvent } from 'src/data/entities/library-event.entity';
 
 @Injectable()
 export class ReviewsService {
@@ -17,6 +18,7 @@ export class ReviewsService {
         @InjectRepository(Review) private readonly reviewsRepository: Repository<Review>,
         @InjectRepository(Book) private readonly booksRepository: Repository<Book>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        @InjectRepository(LibraryEvent) private readonly libraryEventRepository: Repository<LibraryEvent>,
         // @InjectRepository(RatingType) private readonly ratingTypesRepository: Repository<RatingType>,
     ) { }
 
@@ -84,7 +86,6 @@ export class ReviewsService {
         }
     }
 
-
     // userAlreadyReviewedThisBook
     async userAlreadyReviewedThisBook(bookId: string, autor: any): Promise<string> | undefined {
         const reviewFromThisUserForThatBook: Review = await this.reviewsRepository.findOne({ where:
@@ -95,12 +96,15 @@ export class ReviewsService {
         }
     }
 
-    
-
-
-
     // userHasReturnedThisBook
-
+    async userHasReturnedThisBook(bookId: string, author: any): Promise<string> | undefined {
+        const returnEventFromThisUserForThisBook: LibraryEvent = await this.libraryEventRepository.findOne({ where:
+            { book: bookId, user: author, borrowType: 'Returned' }
+        });
+        if (!!returnEventFromThisUserForThisBook) {
+            return 'User must take and return this book before reviewing it!';
+        }
+    }
 
 
 }

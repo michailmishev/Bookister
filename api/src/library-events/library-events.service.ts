@@ -23,15 +23,15 @@ export class LibraryEventsService {
     ) { }
 
 
-    // async createLibraryEventDTO(libraryEvent: LibraryEvent): Promise<ShowLibraryEventDTO> {
-    //     const libraryEventDTO = {
-    //         id: libraryEvent.id,
-    //         user: await libraryEvent.user,
-    //         borrow: libraryEvent.borrow,
-    //         timestamp: libraryEvent.timestamp,
-    //     };
-    //     return await plainToClass(ShowLibraryEventDTO, libraryEventDTO);
-    // }
+    async createLibraryEventDTO(libraryEvent: LibraryEvent): Promise<ShowLibraryEventDTO> {
+        const libraryEventDTO = {
+            id: libraryEvent.id,
+            user: await libraryEvent.user,
+            borrow: libraryEvent.borrowType,
+            timestamp: libraryEvent.timestamp,
+        };
+        return await plainToClass(ShowLibraryEventDTO, libraryEventDTO);
+    }
 
     // async checkForBorrowTypesAndCreateThem(): Promise<void> {
     //     const borrowTypes = [ BorrowTypeEnum.Taken, BorrowTypeEnum.Returned ];
@@ -44,18 +44,18 @@ export class LibraryEventsService {
     // }
 
 
-    // async takeBook(newLibraryEvent: CreateLibraryEventDTO, bookId: string, user: UserShowDTO): Promise<ShowLibraryEventDTO> {
-    //     const libraryEventToBeCreated = await this.libraryEventsRepository.create(newLibraryEvent);
-    //     const bookOfTheLibraryEvent = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
-    //     if (!bookOfTheLibraryEvent) {
-    //         return undefined;
-    //     }
-    //     const author = await this.usersRepository.findOne({ username: user.username });
-    //     libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
-    //     libraryEventToBeCreated.user = Promise.resolve(author);
-    //     const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
-    //     return this.createLibraryEventDTO(createdLibraryEvent);
-    // }
+    async takeOrReturnBook(newLibraryEvent: CreateLibraryEventDTO, bookId: string, user: UserShowDTO): Promise<ShowLibraryEventDTO> {
+        const libraryEventToBeCreated = await this.libraryEventsRepository.create(newLibraryEvent);
+        const bookOfTheLibraryEvent = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
+        if (!bookOfTheLibraryEvent) {
+            return undefined;
+        }
+        const author = await this.usersRepository.findOne({ username: user.username });
+        libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
+        libraryEventToBeCreated.user = Promise.resolve(author);
+        const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
+        return this.createLibraryEventDTO(createdLibraryEvent);
+    }
 
 
 

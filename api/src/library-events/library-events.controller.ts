@@ -20,29 +20,29 @@ export class LibraryEventsController {
 
     
     //
-    // @Post('/:bookId/libraryEvents')
-    // @UsePipes(
-    //     new ValidationPipe({
-    //         transform: true,
-    //         whitelist: true,
-    //     }),
-    // )
-    // async takeOrReturnBook(
-    //     @User() user: UserShowDTO,
-    //     @Param('bookId') bookId: string,
-    //     @Body() libraryEvent1: CreateLibraryEventDTO,
-    // ): Promise<any> {
-    //     await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
-    //     const createdLibraryEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
-    //     if (!createdLibraryEvent) {
-    //             throw new NotFoundException('This book was not found.');
-    //     }
-    //     // if book is taken: ...
-    //     return {
-    //         message: 'Book has been taken successfully!',
-    //         data: createdLibraryEvent,
-    //     };
-    // }
+    @Post('/:bookId/libraryEvents')
+    @UsePipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true,
+        }),
+    )
+    async takeOrReturnBook(
+        @User() user: UserShowDTO,
+        @Param('bookId') bookId: string,
+        @Body() libraryEvent1: CreateLibraryEventDTO,
+    ): Promise<any> {
+        // await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
+        const createdLibraryEvent = await this.libraryEventsService.takeOrReturnBook(libraryEvent1, bookId, user);
+        if (!createdLibraryEvent) {
+                throw new NotFoundException('This book was not found.');
+        }
+        // if book is taken: ...
+        return {
+            message: 'Book has been taken/returned successfully!',
+            data: createdLibraryEvent,
+        };
+    }
     //
 
     

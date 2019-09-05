@@ -25,6 +25,7 @@ import { ShowReviewDTO } from 'src/models/reviews/show-review.dto';
 
 @Controller('books')
 export class ReviewsController {
+    libraryEventService: any;
 
     constructor(
         private readonly reviewsService: ReviewsService,
@@ -45,6 +46,11 @@ export class ReviewsController {
         @Body() review1: CreateReviewDTO,
     ): Promise<any> {
         // await this.reviewsService.checkForRatingTypesAndCreateThem();
+
+        const returnEventForThisBookFromThatUser = await this.reviewsService.userHasReturnedThisBook(bookId, user);
+        if (!returnEventForThisBookFromThatUser) {
+            throw new BadRequestException('In order to leave a review you must read the book first!');
+        }
 
         const reviewFromThisUserForThatBook = await this.reviewsService.userAlreadyReviewedThisBook(bookId, user);
         if (reviewFromThisUserForThatBook) {

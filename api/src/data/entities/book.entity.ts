@@ -36,7 +36,7 @@ export class Book {
     // })
     // averageRating: RatingTypeEnum;
 
-    @Column('nvarchar', {length: 20})
+    @Column('nvarchar', {length: 20, /* default: null */ })
     averageRating: string;
 
 
