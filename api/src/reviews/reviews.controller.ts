@@ -98,6 +98,12 @@ export class ReviewsController {
         } else if (((await reviewToBeUpdated).user.username !== user.username) && !isAdmin) {
             throw new UnauthorizedException('Unauthorized operation!');
         }
+
+        const validationOfRatingEnum = await this.reviewsService.validateRatingEnum(review1.ratingType);
+        if (validationOfRatingEnum) {
+            throw new BadRequestException('Wrong rating input! Rating must be a valid RatingTypeEnum!');
+        }
+
         const createdReview = await this.reviewsService.updateReview(review1, reviewId, user);
         return {
             message: 'Review has been updated successfully!',
