@@ -31,6 +31,7 @@ export class ReviewsController {
 
     constructor(
         private readonly reviewsService: ReviewsService,
+        private readonly bookService: BooksService,
     ) { }
 
     @Post('/:bookId/reviews')
@@ -64,6 +65,13 @@ export class ReviewsController {
         if (reviewFromThisUserForThatBook) {
             throw new BadRequestException('You have already left review for this book!');
         }
+
+        //
+        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId, review1.ratingType);
+        if (!updateBookAveragaRating) {
+            throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        }
+        //
 
         const createdReview = await this.reviewsService.createNewReview(review1, bookId, user);
         if (!createdReview) {

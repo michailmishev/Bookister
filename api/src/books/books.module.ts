@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BooksController } from './books.controller';
 import { Book } from 'src/data/entities/book.entity';
@@ -10,7 +10,7 @@ import { ReviewsModule } from '../reviews/reviews.module';
 
 @Module({
   imports: [
-    CoreModule, AuthModule, ReviewsModule, TypeOrmModule.forFeature([Book, User]),
+    CoreModule, AuthModule, forwardRef(() => ReviewsModule), TypeOrmModule.forFeature([Book, User]),
   ],
   controllers: [BooksController],
   providers: [BooksService],

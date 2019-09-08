@@ -13,6 +13,7 @@ import { UserShowDTO } from '../models/user';
 import { ReviewsService } from 'src/reviews/reviews.service';
 import { UpdateBookDTO } from 'src/models/books/update-book.dto';
 import { BorrowTypeEnum } from 'src/common/enums/borrow-type.enum';
+import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
 
 @Injectable()
 export class BooksService {
@@ -105,7 +106,7 @@ export class BooksService {
     }
 
     //
-    async updateBookAvailabilityStatus(borrowType: BorrowTypeEnum, bookId: string): Promise<ShowBookWithoutReviewsDTO> {
+    async updateBookAvailabilityStatus(borrowType: BorrowTypeEnum, bookId: string): Promise<ShowBookWithoutReviewsDTO> | undefined {
         const bookToBeUpdated = await this.bookRepository.findOne({id: bookId, isDeleted: false});
         if (!bookToBeUpdated) {
             return undefined;
@@ -119,8 +120,16 @@ export class BooksService {
 
         const updatedBook = await this.bookRepository.save(bookToBeUpdated);
 
-        return this.createShowBookDTO(updatedBook);
+        return this.createShowBookDTO(updatedBook);         // return 'Book Availability Successfully Changed!';
     }
+
+
+    //
+    async updateBookAveragaRating(bookId: string, bookRating: RatingTypeEnum): Promise<any> | undefined {
+        
+    }
+    //
+
 
 
     //
