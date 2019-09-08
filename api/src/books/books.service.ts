@@ -12,6 +12,7 @@ import { User } from '../data/entities/user.entity';
 import { UserShowDTO } from '../models/user';
 import { ReviewsService } from 'src/reviews/reviews.service';
 import { UpdateBookDTO } from 'src/models/books/update-book.dto';
+import { BorrowTypeEnum } from 'src/common/enums/borrow-type.enum';
 
 @Injectable()
 export class BooksService {
@@ -102,6 +103,29 @@ export class BooksService {
             return bookWithSuchTitle.title;
         }
     }
+
+    //
+    async updateBookAvailabilityStatus(borrowType: BorrowTypeEnum, bookId: string): Promise<ShowBookWithoutReviewsDTO> {
+        const bookToBeUpdated = await this.bookRepository.findOne({id: bookId, isDeleted: false});
+        if (!bookToBeUpdated) {
+            return undefined;
+        }
+
+        if (borrowType === BorrowTypeEnum.Taken) {
+            bookToBeUpdated.isTaken = true;
+        } else if (borrowType === BorrowTypeEnum.Returned) {
+            bookToBeUpdated.isTaken = false;
+        }
+
+        const updatedBook = await this.bookRepository.save(bookToBeUpdated);
+
+        return this.createShowBookDTO(updatedBook);
+    }
+
+
+    //
+    //
+    //
 
     // filterBySort     // name / date / rating
 

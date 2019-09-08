@@ -1,4 +1,18 @@
-import { Controller, Post, HttpCode, HttpStatus, UseGuards, UsePipes, ValidationPipe, Param, Body, NotFoundException, Put, UnauthorizedException, Get, BadRequestException } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    HttpCode,
+    HttpStatus,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+    Param,
+    Body,
+    NotFoundException,
+    Put,
+    UnauthorizedException,
+    Get,
+    BadRequestException } from '@nestjs/common';
 import { LibraryEventsService } from './library-events.service';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
@@ -10,12 +24,14 @@ import { User } from '../common/decorators/user.decorator';
 import { UpdateLibraryEventDTO } from 'src/models/library-events/update-library-event.dto';
 import { ShowLibraryEventDTO } from 'src/models/library-events/show-library-event.dto';
 import { BorrowTypeEnum } from 'src/common/enums/borrow-type.enum';
+import { BooksService } from 'src/books/books.service';
 
 @Controller('books')
 export class LibraryEventsController {
 
     constructor(
         private readonly libraryEventsService: LibraryEventsService,
+        private readonly bookService: BooksService,
     ) { }
 
     // @Post('/:bookId/libraryEvents')
@@ -67,6 +83,13 @@ export class LibraryEventsController {
                 throw new BadRequestException('This book is already taken');
             }
 
+            //
+            const updateBookAvailabilityStatus = await this.bookService.updateBookAvailabilityStatus(BorrowTypeEnum.Taken, bookId);
+            if (!updateBookAvailabilityStatus) {
+                throw new BadRequestException('The book availability status was not successfully updated!');
+            }
+            //
+
             const createdTakeEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
             if (!createdTakeEvent) {
                 throw new NotFoundException('This book was not found!');
@@ -89,6 +112,13 @@ export class LibraryEventsController {
             if (checkIfUserIsNotTheOneTakenTheBook) {
                 throw new BadRequestException('You cannot return a book that is not taken by you');
             }
+
+            //
+            const updateBookAvailabilityStatus = await this.bookService.updateBookAvailabilityStatus(BorrowTypeEnum.Returned, bookId);
+            if (!updateBookAvailabilityStatus) {
+                throw new BadRequestException('The book availability status was not successfully updated!');
+            }
+            //
 
             const createdReturnEvent = await this.libraryEventsService.returnBook(libraryEvent1, bookId, user);
             if (!createdReturnEvent) {

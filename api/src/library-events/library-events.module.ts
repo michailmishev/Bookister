@@ -7,13 +7,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/data/entities/user.entity';
 import { Book } from 'src/data/entities/book.entity';
 import { LibraryEvent } from 'src/data/entities/library-event.entity';
+import { BooksService } from 'src/books/books.service';
+import { BooksModule } from 'src/books/books.module';
 
 @Module({
 
-    imports: [AuthModule, TypeOrmModule.forFeature([Book, User, /* BorrowType, */ LibraryEvent])],
+    imports: [AuthModule, TypeOrmModule.forFeature([Book, User, /* BorrowType, */ LibraryEvent]) , BooksModule],
     controllers: [LibraryEventsController],
-    providers: [LibraryEventsService],
-    exports: [LibraryEventsService],
+    providers: [LibraryEventsService, BooksService],
+    exports: [LibraryEventsService, BooksService],
 
 })
 export class LibraryEventsModule {}

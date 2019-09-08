@@ -1,10 +1,10 @@
-import { IsString, IsNotEmpty, Length } from 'class-validator';
+// import { IsString, IsNotEmpty, Length } from 'class-validator';
 
-export class UpdateBookAverageRatingDTO {
+// export class UpdateBookAverageRatingDTO {
 
-    @IsNotEmpty()
-    @IsString()
-    @Length(2, 20)
-    readonly averageRating: string;
+//     @IsNotEmpty()
+//     @IsString()
+//     @Length(2, 20)
+//     readonly averageRating: string;
 
-}
+// }

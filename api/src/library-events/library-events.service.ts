@@ -69,6 +69,10 @@ export class LibraryEventsService {
         libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
         libraryEventToBeCreated.user = Promise.resolve(author);
 
+        //
+        
+        //
+
         const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
         return this.createLibraryEventDTO(createdLibraryEvent);
     }
@@ -112,7 +116,6 @@ export class LibraryEventsService {
                 return 'This book is taken but not by the this user';
             }
         }
-
     }
 
 }
