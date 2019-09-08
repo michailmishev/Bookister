@@ -36,10 +36,10 @@ export class Book {
     // })
     // averageRating: RatingTypeEnum;
 
-    @Column('nvarchar', {length: 20, /* default: null */ })
-    averageRating: string;
-
-
+    //
+    @Column('nvarchar', { default: null })                     // default - null / undefined ? ? ?
+    averageRating: string;                                    // string or number ?
+    //
 
     @Column('boolean', {default: false})
     isTaken: boolean;

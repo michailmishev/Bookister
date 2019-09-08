@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Review } from 'src/data/entities/review.entity';
-import { Repository } from 'typeorm';
+import { Repository, Brackets } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from 'src/data/entities/book.entity';
 import { User } from '../data/entities/user.entity';
@@ -11,6 +11,7 @@ import { plainToClass } from 'class-transformer';
 import { CreateReviewDTO } from 'src/models/reviews/create-review.dto';
 import { UserShowDTO } from 'src/models/user';
 import { LibraryEvent } from 'src/data/entities/library-event.entity';
+import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
 
 @Injectable()
 export class ReviewsService {
@@ -103,6 +104,25 @@ export class ReviewsService {
         });
         if (!!returnEventFromThisUserForThisBook) {
             return 'User must take and return this book before reviewing it!';
+        }
+    }
+
+    // validaion of enum because of a enum input bug!
+    async validateRatingEnum(ratingInput: any): Promise<string> | undefined {
+        const wrongInput = 'Wrong Input!';
+        switch (ratingInput) {
+            case 'Awful':
+                return wrongInput;
+            case 'Bad':
+                return wrongInput;
+            case 'Average':
+                return wrongInput;
+            case 'Good':
+                return wrongInput;
+            case 'Excellent':
+                return wrongInput;
+            default:
+                break;
         }
     }
 

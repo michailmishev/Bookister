@@ -1,7 +1,7 @@
 export enum RatingTypeEnum {
-    AWFUL = 'Awful',
-    BAD = 'Bad',
-    AVERAGE = 'Average',
-    GOOD = 'Good',
-    EXCELLENT = 'Excellent',
+    Awful = 1,
+    Bad = 2,
+    Average = 3,
+    Good = 4,
+    Excellent = 5,
 }

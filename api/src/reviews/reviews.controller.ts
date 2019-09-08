@@ -49,6 +49,12 @@ export class ReviewsController {
     ): Promise<any> {
         // await this.reviewsService.checkForRatingTypesAndCreateThem();
 
+        // for some reason the enum is not working properly!
+        const validationOfRatingEnum = await this.reviewsService.validateRatingEnum(review1.ratingType);
+        if (validationOfRatingEnum) {
+            throw new BadRequestException('Wrong rating input! Rating must be a valid RatingTypeEnum!');
+        }
+
         const returnEventForThisBookFromThatUser = await this.reviewsService.userHasReturnedThisBook(bookId, user);
         if (!returnEventForThisBookFromThatUser) {
             throw new BadRequestException('In order to leave a review you must read the book first!');
