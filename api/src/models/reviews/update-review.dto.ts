@@ -6,7 +6,7 @@ export class UpdateReviewDTO {
 
     // @IsString()
     // readonly ratingType: RatingTypeEnum;
-    @IsEnum(string)
+    @IsEnum(RatingTypeEnum)
     readonly ratingType: RatingTypeEnum;
 
     @IsString()

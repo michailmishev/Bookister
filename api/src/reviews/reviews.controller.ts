@@ -66,17 +66,17 @@ export class ReviewsController {
             throw new BadRequestException('You have already left review for this book!');
         }
 
-        //
-        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId, review1.ratingType);
-        if (!updateBookAveragaRating) {
-            throw new BadRequestException('There was a problem with updating the average rating of the book!');
-        }
-        //
-
         const createdReview = await this.reviewsService.createNewReview(review1, bookId, user);
         if (!createdReview) {
             throw new NotFoundException('This book was not found.');
         }
+
+        //
+        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        if (!updateBookAveragaRating) {
+            throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        }
+        //
 
         return {
             message: 'Review has been submitted successfully!',
@@ -113,6 +113,14 @@ export class ReviewsController {
         }
 
         const createdReview = await this.reviewsService.updateReview(review1, reviewId, user);
+
+        //
+        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        if (!updateBookAveragaRating) {
+            throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        }
+        //
+
         return {
             message: 'Review has been updated successfully!',
             data: createdReview,

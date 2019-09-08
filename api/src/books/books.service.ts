@@ -21,6 +21,7 @@ export class BooksService {
     public constructor(
         @InjectRepository(Book) private readonly bookRepository: Repository<Book>,
         @InjectRepository(User) private readonly userRepository: Repository<User>,
+        @InjectRepository(Review) private readonly reviewReoisitory: Repository<Review>,
         private readonly reviewsService: ReviewsService,
     ) { }
 
@@ -106,7 +107,7 @@ export class BooksService {
     }
 
     //
-    async updateBookAvailabilityStatus(borrowType: BorrowTypeEnum, bookId: string): Promise<ShowBookWithoutReviewsDTO> | undefined {
+    async updateBookAvailabilityStatus(borrowType: BorrowTypeEnum, bookId: string): Promise<string> | undefined {
         const bookToBeUpdated = await this.bookRepository.findOne({id: bookId, isDeleted: false});
         if (!bookToBeUpdated) {
             return undefined;
@@ -119,18 +120,43 @@ export class BooksService {
         }
 
         const updatedBook = await this.bookRepository.save(bookToBeUpdated);
-
-        return this.createShowBookDTO(updatedBook);         // return 'Book Availability Successfully Changed!';
+        if (!!updatedBook) {
+            return 'Book Availability Successfully Changed!';
+        }
     }
 
+    async updateBookAveragaRating(bookId: string): Promise<string> | undefined {
+        const [allReviewsOfTheBook, reviewsCount]  = await this.reviewReoisitory.findAndCount({ where:
+            { book: bookId, isDeleted: false }
+        });
 
-    //
-    async updateBookAveragaRating(bookId: string, bookRating: RatingTypeEnum): Promise<any> | undefined {
-        
+        const bookToBeUpdated = await this.bookRepository.findOne({id: bookId});
+        if (!bookToBeUpdated) {
+            return undefined;
+        }
+
+        if (!![allReviewsOfTheBook, reviewsCount]) {
+            let sumOfAllReviews = 0;
+
+            for (const review of allReviewsOfTheBook) {
+                sumOfAllReviews += review.ratingType;
+            }
+
+            const avrgRating = sumOfAllReviews / reviewsCount;
+
+            bookToBeUpdated.averageRating = avrgRating.toString();
+            const updatedBook = await this.bookRepository.save(bookToBeUpdated);
+
+            // console.log(sumOfAllReviews);
+            // console.log(reviewsCount);
+            // console.log(avrgRating);
+            // console.log(allReviewsOfTheBook);
+
+            if (!!updatedBook) {
+                return 'Books average rating was successfully updated!';
+            }
+        }
     }
-    //
-
-
 
     //
     //
