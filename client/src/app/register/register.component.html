@@ -1,0 +1,66 @@
+<div class="login-form" >
+  <form [formGroup]="frmSignup" (submit)="submit(checkboxval.checked)">
+      <h2 class="text-center">Register</h2>       
+
+      <div class="form-group">  
+        <label for="username" >Username</label>
+        <label class="text-danger" *ngIf="frmSignup.controls['username'].hasError('required')">*</label>
+        <input id="username" formControlName="username" type="text" class="form-control" >
+        <label style="color: red">{{errorUsernameTaken}}</label>
+      </div>
+
+      <div class="form-group">   
+        <label for="email" >Email Address</label>
+        <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('required')">*</label>
+        <input id="email" formControlName="email" type="text" class="form-control" >
+        <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('email')">
+          Enter a valid email address!
+        </label>
+        <label style="color: red">{{errorEmailTaken}}</label>
+      </div>
+
+      <div class="form-group">    
+        <label for="password" >Password:</label>
+        <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('required')">*</label>
+        <input id="password" formControlName="password" type="password" class="form-control" >
+
+        <div class="inline">
+          <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'text-muted' : 'text-success'">
+          <small>Must be at least 6 characters!</small>
+          </label>
+          <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'text-muted' : 'text-success'">
+          <small> Must contain at least 1 number!</small>
+          </label>
+          <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'text-muted' : 'text-success'">
+          <small>Must contain at least 1 in Capital Case!</small>
+          </label>
+          <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSmallCase')  ? 'text-muted' : 'text-success'">
+          <small>Must contain at least 1 Letter in Small Case!</small>
+          </label>
+          <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSpecialCharacters') ? 'text-muted' : 'text-success'">
+          <small> Must contain at least 1 Special Character!</small>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" >Confirm Password:</label>
+        <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('required')">*</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control">
+        <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
+          Password do not match
+        </label>
+      </div>
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-outline-dark btn-block" >Register</button>
+      </div>
+      
+      <div class="clearfix">
+          <label class="pull-left checkbox-inline"><input type="checkbox" #checkboxval> Log me in</label>
+          <!-- <a href="#" class="pull-right">Forgot Password?</a> -->
+      </div>        
+  </form>
+  <label style="color:green;">{{succesMesage}}</label>
+  <p class="text-center"><a routerLink="/login">Sign In</a></p>
+</div>
