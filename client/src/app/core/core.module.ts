@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StorageService } from './services/storage.service';
-// import { UsersDataService } from './services/users-data.service';
+import { UsersDataService } from './services/users-data.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { JWTService } from './services/jwt.service';
+import { BooksDataServices } from './services/books-data.service';
+import { ReviewsDataService } from './services/reviews-data.service';
 
 @NgModule({
   imports: [
@@ -16,9 +18,11 @@ import { JWTService } from './services/jwt.service';
     AuthService,
     HttpClient,
     StorageService,
-    // UsersDataService,
+    UsersDataService,
     AuthGuardService,
-    JWTService
+    JWTService,
+    BooksDataServices,
+    ReviewsDataService,
   ]
 })
 export class CoreModule {

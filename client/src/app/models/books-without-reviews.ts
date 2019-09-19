@@ -1,3 +1,4 @@
+import { ShowReview } from './show-review';
 
 export interface BookWithoutReviews {
   id: string;
@@ -8,4 +9,7 @@ export interface BookWithoutReviews {
   timestamp: Date;
   averageRating: string;
   isTaken: boolean;
+
+  numberOfReviews: number;
+  reviews: ShowReview[];
 }

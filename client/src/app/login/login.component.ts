@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public login(username: string, password: string) {
     const user: UserLogin = { username, password };
     this.loginSubscription = this.authService.login(user).subscribe((data) => {
-      this.router.navigate(['/posts']);
+      this.router.navigate(['/books']);
     }, (err: any) => {
       this.wrongCredentials = 'Wrong Username or Password';
       });

@@ -5,7 +5,7 @@ import { UserRegister } from '../../models/user-register';
 import { UserLogin } from '../../models/user-login';
 import { StorageService } from '../../core/services/storage.service';
 import { tap } from 'rxjs/operators';
-// import * as JWT from 'jwt-decode';
+import * as JWT from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { ShowUser } from 'src/app/models/show-user';

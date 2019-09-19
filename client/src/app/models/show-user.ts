@@ -3,6 +3,5 @@ export interface ShowUser {
     username: string;
     banstatus: any;
     roles: any[];
-    // areFriends: boolean;
     isDeleted: boolean;
   }
