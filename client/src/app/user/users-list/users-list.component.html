@@ -1,0 +1,22 @@
+<div class="table-responsive-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 15%"></th>
+          <th scope="col" style="width: 40%">Username</th>
+          <th scope="col" style="width: 10%">Admins</th>
+          <th scope="col" style="width: 10%">Banned</th>
+          <th scope="col" style="width: 15%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" (click)="selectUser(user)">
+          <td></td>
+          <th>{{user.username}}</th>
+          <td><span *ngIf="isAdmin(user.roles)"><span class="oi oi-shield"></span> Admin</span></td>
+          <td><span *ngIf="user.banstatus.isBanned"><span class="oi oi-ban"></span> Banned</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

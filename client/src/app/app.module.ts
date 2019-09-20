@@ -21,7 +21,10 @@ import { SpinnerInterceptor } from './interceptors/spinner-interceptor.service';
 import { BooksListComponent } from './books/books-list/books-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputCounterModule } from 'ng4-input-counter';
-// import { UserModule } from './user/user.module';
+import { UsersComponent } from './user/users/users.component';
+import { UsersListComponent } from './user/users-list/users-list.component';
+import { UserViewComponent } from './user/user-view/user-view.component';
+import { UserModule } from './user/user.module';
 
 
 export function tokenGetter() {
@@ -34,6 +37,9 @@ export function tokenGetter() {
     RegisterComponent,
     LoginComponent,
     NavbarComponent,
+    // UserViewComponent,
+    // UsersListComponent,
+    // UsersComponent,
     // BooksListComponent,
     // ErrorComponent,
     // NotFoundComponent
@@ -52,7 +58,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     RouterModule,
     NgxSpinnerModule,
-    // UserModule,
+    UserModule,
     NgxPaginationModule,
     InputCounterModule.forRoot(),
     JwtModule.forRoot({

@@ -1,0 +1,36 @@
+#user-icon {
+    height: 40px;
+}
+
+#bookister-logo {
+    height: 40px;
+    margin-right: 5px;
+}
+  
+label {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+  
+.user:hover {
+    color: #5b9bd1;
+}
+  
+#user-icon:hover {
+    /* height: 39px; */
+    border-radius: 50%;
+    border: 2px solid #5b9bd1;
+
+}
+
+/* #bookister-logo:hover { */
+    /* height: 39px; */
+    /* border-radius: 50%;
+    border: 2px solid #FF757C; */
+/* } */
+
+
+.center-buttons-section li {
+    margin-left: 3px;
+    margin-right: 3px;
+}

@@ -1,3 +1,83 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <img id="bookister-logo" src="../assets/bookister-logo/bookister-logo.svg" alt="" href="#" >
+  <a class="navbar-brand" href="#">bookister</a>
+  
+
+
+  <span [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="isLoggedIn()">
+
+
+    <!-- Central Buttons -->
+    <ul class="navbar-nav my-2 my-lg-0 ml-auto center-buttons-section">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/books']">Books</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" [routerLink]="['/users']" class="btn btn-outline-secondary">Users</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-secondary" (click)="open(content)" *ngIf="!isBanned" >Add New Book</button>
+        </li>
+    </ul>
+
+
+    
+
+    <div class="my-2 my-lg-0 text-danger" *ngIf="isBanned && isLoggedIn()"><span class="oi oi-ban"></span> Your profile is currently
+      banned! <span class="oi oi-ban"></span></div>
+
+
+
+
+    <!-- Modal -->
+    <ng-template #content let-modal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Book</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">    <!-- "d('Cross click')" -->
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="md-form mb-5">
+        <label data-error="wrong" data-success="right" for="form29">title</label>
+        <input-counter #titleInput type="text" id="form29" className="form-control validate" required="required"
+          maxlength=200 minlength=1></input-counter>
+      </div>
+      <div class="md-form mb-5">
+        <label data-error="wrong" data-success="right" for="form32">author</label>
+        <input-counter #authorInput type="text" id="form32" className="form-control validate" required="required"
+          maxlength=100></input-counter>
+      </div>
+      <div class="md-form">
+        <label data-error="wrong" data-success="right" for="form8">topic</label>
+        <input-counter #topicInput type="text" id="form8" className="form-control validate" required="required"
+          maxlength=100 minlength=1></input-counter>
+      </div>
+      <div class="md-form">
+          <label data-error="wrong" data-success="right" for="form41">language</label>
+          <input-counter #languageInput type="text" id="form41" className="form-control validate" required="required"
+            maxlength=100 minlength=1></input-counter>
+        </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark"
+          (click)="createBook(titleInput.value,authorInput.value,topicInput.value,languageInput.value)">Save</button>
+      </div>
+      <label style="color:green;">{{successMessage}}</label>
+    </ng-template>
+    <!-- Modal -->
+
+  
+
+    
+    <span class="my-2 my-sm-0  ml-auto">
+      <img id="user-icon" src="../assets/user-icons/user-icon.svg" alt="" *ngIf="isLoggedIn()"
+        [routerLink]="['/users', reverseToken().id]">
+      <label class="user" [routerLink]="['/users', reverseToken().id]">{{reverseToken().username}}</label>
+
+      <button class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" type="submit" (click)="this.logout()"
+        *ngIf="isLoggedIn()">Log
+        Out</button>
+    </span>
+    
+  </span>
+</nav>

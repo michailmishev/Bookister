@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EditReviewModel } from 'src/app/models/edit-comments';
+import { EditReviewModel } from 'src/app/models/edit-reviews';
 import { CreateReviewModel } from 'src/app/models/create-review';
 
 @Injectable({

@@ -22,7 +22,7 @@ export class ShowBookWithoutReviewsDTO {
 
     @Expose()
     @IsString()
-    laguage: string;
+    language: string;
 
     @Expose()
     @IsDate()

@@ -1,0 +1,36 @@
+<div class="container" *ngIf="user">
+    <div class="row profile">
+      <div class="col-md-3">
+        <div class="profile-sidebar">
+          <div class="profile-userpic text-center">
+            <img src="../../../assets/user-icons/user-icon.svg" class="img-responsive" alt="">
+          </div>
+          <div class="profile-usertitle">
+            <div class="profile-usertitle-name">
+              {{user.username}}
+            </div>
+            <div class="profile-usertitle-role">
+              <span *ngIf="isAdmin(user.roles)"><span class="oi oi-shield"></span> Admin</span>
+              <span *ngIf="!isAdmin(user.roles)"><span class="oi oi-person"></span> User</span>
+              <div class="text-danger" *ngIf="user.banstatus.isBanned"><span class="oi oi-ban"></span> Banned</div>
+            </div>
+            <div *ngIf="isTheSamePerson()"><span class="oi oi-key"></span> Your profile</div>
+  
+          </div>
+          <!-- SIDEBAR BUTTONS -->
+         
+          <!-- END SIDEBAR BUTTONS -->
+          <!-- SIDEBAR MENU -->
+          <!-- <app-admin-buttons *ngIf="setAdminStatus() && !isBanned" [user]="user" (deleteUserEvent)="deleteUser()"
+            (banUserEvent)="banUser('reason')" (unbanUserEvent)="unbanUser()"></app-admin-buttons> -->
+          <!-- END MENU -->
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- <div class="profile-content">
+          <app-activity *ngIf="(setAdminStatus() || user.areFriends) && posts" [posts]="posts" (selectedPost)="selectPost($event)"></app-activity>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  

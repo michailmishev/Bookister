@@ -1,0 +1,15 @@
+.table {
+    width: 85%;
+    margin: 50px auto;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    background:gray;
+  }
+  .my-pagination /deep/.pagination-previous a::before,
+  .my-pagination /deep/.pagination-previous.disabled::before,
+  .my-pagination /deep/.pagination-next a::after,
+  .my-pagination /deep/.pagination-next.disabled::after { 
+    content: '' !important; 
+  }
+  

@@ -1,0 +1,15 @@
+#user-icon {
+    height: 40px;
+  }
+  
+  button {
+    float: right;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    /* align-items: center; */
+  }
+  

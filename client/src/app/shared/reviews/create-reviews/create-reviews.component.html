@@ -1,3 +1,13 @@
-<p>
-  create-reviews works!
-</p>
+<div class="card my-4">
+    <h5 class="card-header">Leave a Review:</h5>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <textarea class="form-control" rows="3" required minlength="1" #body></textarea>
+        </div>
+        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(body.value); body.value='  '">
+          Submit</div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,3 +1,54 @@
-<p>
-  view-reviews works!
-</p>
+<div class="media mb-4" *ngFor="let review of book.reviews">
+    <img id="user-icon" class="d-flex mr-3 rounded-circle" src="../assets/user-icons/user-icon.svg" alt="">
+    <div class="media-body">
+      <a class="h5" (click)="selectUser(review.author.id)"
+        *ngIf="!review.author.isDeleted">{{review.author.username}}</a>
+      <div class="h5 text-danger" *ngIf="review.author.isDeleted">DELETED</div>
+      <hr>
+      {{review.timestamp | date:"short"}}
+      <hr>
+      {{review.ratingType}}
+      <hr>
+      {{review.comment}}
+      <hr>
+      <button *ngIf="showButtons(review.author.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+        (click)="open(content)">Edit</button>
+      <button *ngIf="showButtons(review.author.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+        (click)="deleteReview(review.id)">Delete</button>
+  
+  
+      <!-- Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="('Cross click')">      <!-- "d('Cross click')" -->
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  
+        <div class="card my-4">
+          <h5 class="card-header">Edit your review:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3" #body required minlength="1">{{review.ratingType}}</textarea>
+              </div>
+              <!---->
+              <div class="form-group">
+                <textarea class="form-control" rows="3" #body required minlength="1">{{review.comment}}</textarea>
+              </div>
+              <!---->
+            </form>
+          </div>
+          <div *ngIf="body.minlength">
+            The review must be at least 1 characters long.
+          </div>
+          <div class="btn btn-outline-secondary my-2 mr-2 my-sm-0  ml-auto"
+            (click)="editReview(review.id, body.value.toString())">
+            Submit</div>
+        </div>
+      </ng-template>
+      <!-- Modal -->
+  
+    </div>
+  </div>
+  

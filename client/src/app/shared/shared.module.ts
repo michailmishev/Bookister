@@ -18,7 +18,9 @@ import { ViewReviewsComponent } from './reviews/view-reviews/view-reviews.compon
   exports: [
     CommonModule,
     NotFoundComponent,
-    ErrorComponent
+    ErrorComponent,
+    ViewReviewsComponent,
+    CreateReviewsComponent,
   ]
 })
 export class SharedModule { }

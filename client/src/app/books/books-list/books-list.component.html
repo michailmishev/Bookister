@@ -1,3 +1,28 @@
-<p>
-  books-list works!
-</p>
+<div class="table-responsive-sm">
+  <table class="table table-hover">
+    <thead>
+      <tr class="text-center">
+        <th class="text-left" scope="col" style="width: 15%">Book</th>
+        <th scope="col" style="width: 10%">Author</th>
+        <th scope="col" style="width: 10%">Topic</th>
+        <th scope="col" style="width: 10%">Language</th>
+        <!-- <th scope="col" style="width: 10%">Date added</th> -->
+        <th scope="col" style="width: 10%">Average Rating</th>
+        <th scope="col" style="width: 10%">Is it Taken?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center" *ngFor="let book of books | paginate: { itemsPerPage: 10, currentPage: p }" (click)="selectBook(book)">
+        <td class="text-left" >{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.topic}}</td>
+        <td>{{book.language}}</td>
+        <td>{{book.averageRating}}</td>
+        <td>{{book.isTaken}}</td>
+        <!-- <td class="text-center">{{book.numberOfReviews}}</td> -->
+      </tr>
+    </tbody>
+    <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="" nextLabel="">
+    </pagination-controls>
+  </table>
+</div>

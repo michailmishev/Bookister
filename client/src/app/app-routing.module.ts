@@ -4,7 +4,6 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService as AuthGuard } from '../../src/app/core/services/auth-guard.service';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-// import { FriendsComponent } from './user/friends/friends.component';
 import { ErrorComponent } from './shared/error/error.component';
 
 
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'books', loadChildren: './books/books.module#BooksModule', canActivate: [AuthGuard] },
   { path: 'users', loadChildren: './user/user.module#UserModule', canActivate: [AuthGuard] },
-  // { path: 'friends', component: FriendsComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'error', component: ErrorComponent },
   { path: '**', redirectTo: '/not-found' }

@@ -68,7 +68,7 @@ export class BookViewComponent implements OnInit, OnDestroy {
           this.title = data.title;
           this.author = data.author;    // user?
           this.topic = data.topic;
-          this.language = data.laguage;
+          this.language = data.language;
 
           // const reversed = this.authService.reverseToken();
           const isAdmin = this.authService.setAdminStatus();

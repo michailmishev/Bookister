@@ -1,3 +1,80 @@
-<p>
-  book-view works!
-</p>
+<div class="container" *ngIf="book">
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <h1 class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}}</h1>    <!-- locked ? ? ? -->
+        <div class="row">
+        </div>
+        <hr>
+        <p class="lead">by {{book.author}}</p>
+        <p>{{book.topic}}</p>
+        <p>{{book.language}}</p>
+        <p>{{book.averageRating}}</p>
+        <p>{{book.isTaken}}</p>
+  
+        <hr>
+        
+        
+        <button *ngIf="showEditButton" type="button" class="btn btn-outline-dark mr-1"
+          (click)="open(content)">Edit</button>
+        <button *ngIf="showDeleteButton" type="button" class="btn btn-outline-dark mr-1"
+          (click)="deleteBook()">Delete</button>
+  
+      
+        <!-- Modal -->
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
+            <button type="button" class="close" aria-label="Close" (click)="('Cross click')">   <!-- "d('Cross click')" -->
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="md-form mb-5">
+            <label data-error="wrong" data-success="right" for="form29">Title</label>
+            <textarea #titleInput type="text" id="form29" class="form-control validate"
+              required="required">{{title}}</textarea>
+  
+          </div>
+  
+          <div class="md-form mb-5">
+            <label data-error="wrong" data-success="right" for="form32">Description</label>
+            <textarea #descriptionInput type="text" id="form32" class="form-control validate"
+              required="required">{{author}}</textarea>
+  
+          </div>
+  
+          <div class="md-form">
+            <label data-error="wrong" data-success="right" for="form8">Your Book</label>
+            <textarea #bookBodyInput type="text" id="form8" class="md-textarea form-control" rows="4"
+              required="required">{{topic}}</textarea>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark"
+              (click)="updateBook(titleInput.value,descriptionInput.value,bookBodyInput.value)">Edit Book</button>
+          </div>
+          <label style="color:green;">{{successMessage}}</label>
+        </ng-template>
+        <!-- Modal -->
+  
+        <hr>
+  
+        <br />
+        <p class="h4">Reviews:</p>
+        <br />
+
+        <app-view-reviews [book]="book" (deletedReviewEvent)="ngOnInit()" (editedReviewEvent)="ngOnInit()">
+        </app-view-reviews>
+
+        <hr>
+  
+        <app-create-reviews [bookId]="book.id" (reviewCreatedEvent)="reviewCreated()" *ngIf="!book.isLocked && !isBanned">
+        </app-create-reviews>
+  
+
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+  

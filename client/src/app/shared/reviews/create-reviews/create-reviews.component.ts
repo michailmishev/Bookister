@@ -32,38 +32,3 @@ export class CreateReviewsComponent implements OnInit {
 
 }
 
-
-// -------------------------------------------------------------------------
-
-// import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { CommentsDataService } from 'src/app/core/services/comments-data.service';
-
-// @Component({
-//   selector: 'app-create-comments',
-//   templateUrl: './create-comments.component.html',
-//   styleUrls: ['./create-comments.component.css']
-// })
-// export class CreateCommentsComponent implements OnInit {
-  // @Input()
-  // postId: string;
-  // @Output()
-  // commentCreatedEvent = new EventEmitter();
-
-  // constructor(
-  //   private readonly commentsDataService: CommentsDataService,
-  // ) { }
-
-  // createComment(body: string) {
-  //   if (body.length >= 1) {
-  //     this.commentsDataService.postComment(this.postId, { body }).subscribe(
-  //       (res: Response) => {
-  //         this.commentCreatedEvent.emit();
-  //       }
-  //     );
-  //   }
-  // }
-
-  // ngOnInit() {
-  // }
-
-// }

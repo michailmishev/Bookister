@@ -5,7 +5,7 @@ export interface BookWithoutReviews {
   title: string;
   author: string;
   topic: string;
-  laguage: string;
+  language: string;
   timestamp: Date;
   averageRating: string;
   isTaken: boolean;
