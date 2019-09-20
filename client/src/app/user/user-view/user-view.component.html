@@ -21,16 +21,11 @@
          
           <!-- END SIDEBAR BUTTONS -->
           <!-- SIDEBAR MENU -->
-          <!-- <app-admin-buttons *ngIf="setAdminStatus() && !isBanned" [user]="user" (deleteUserEvent)="deleteUser()"
-            (banUserEvent)="banUser('reason')" (unbanUserEvent)="unbanUser()"></app-admin-buttons> -->
+          <app-admin-buttons *ngIf="setAdminStatus() && !isBanned" [user]="user" (deleteUserEvent)="deleteUser()"></app-admin-buttons>
           <!-- END MENU -->
         </div>
       </div>
-      <div class="col-md-9">
-        <!-- <div class="profile-content">
-          <app-activity *ngIf="(setAdminStatus() || user.areFriends) && posts" [posts]="posts" (selectedPost)="selectPost($event)"></app-activity>
-        </div> -->
-      </div>
+      <!--  -->
     </div>
   </div>
   

@@ -4,13 +4,15 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorComponent } from './error/error.component';
 import { CreateReviewsComponent } from './reviews/create-reviews/create-reviews.component';
 import { ViewReviewsComponent } from './reviews/view-reviews/view-reviews.component';
+import { AdminButtonsComponent } from './admin-buttons/admin-buttons.component';
 
 @NgModule({
   declarations: [
     NotFoundComponent,
     ErrorComponent,
     CreateReviewsComponent,
-    ViewReviewsComponent
+    ViewReviewsComponent,
+    AdminButtonsComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,7 @@ import { ViewReviewsComponent } from './reviews/view-reviews/view-reviews.compon
     ErrorComponent,
     ViewReviewsComponent,
     CreateReviewsComponent,
+    AdminButtonsComponent
   ]
 })
 export class SharedModule { }
