@@ -79,6 +79,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  //
+  public setAdminStatus(): number {
+    return this.authService.setAdminStatus();
+  }
+  //
+
+
   open(content) {
     this.modalService.open(content);
   }
