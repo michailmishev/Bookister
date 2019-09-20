@@ -25,6 +25,7 @@ import { UsersComponent } from './user/users/users.component';
 import { UsersListComponent } from './user/users-list/users-list.component';
 import { UserViewComponent } from './user/user-view/user-view.component';
 import { UserModule } from './user/user.module';
+import { FooterComponent } from './footer/footer.component';
 
 
 export function tokenGetter() {
@@ -37,6 +38,7 @@ export function tokenGetter() {
     RegisterComponent,
     LoginComponent,
     NavbarComponent,
+    FooterComponent,
     // UserViewComponent,
     // UsersListComponent,
     // UsersComponent,
