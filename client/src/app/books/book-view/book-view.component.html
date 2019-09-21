@@ -22,40 +22,46 @@
   
       
         <!-- Modal -->
-        <ng-template #content let-c="close" let-d="dismiss">
+        <ng-template #content let-modal let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
-            <button type="button" class="close" aria-label="Close" (click)="('Cross click')">   <!-- "d('Cross click')" -->
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">   <!-- "d('Cross click')" -->
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
           <div class="md-form mb-5">
-            <label data-error="wrong" data-success="right" for="form29">Title</label>
+            <label data-error="wrong" data-success="right" for="form29">title</label>
             <textarea #titleInput type="text" id="form29" class="form-control validate"
               required="required">{{title}}</textarea>
-  
           </div>
-  
+
           <div class="md-form mb-5">
-            <label data-error="wrong" data-success="right" for="form32">Description</label>
-            <textarea #descriptionInput type="text" id="form32" class="form-control validate"
+            <label data-error="wrong" data-success="right" for="form32">author</label>
+            <textarea #authorInput type="text" id="form32" class="form-control validate"
               required="required">{{author}}</textarea>
-  
           </div>
-  
+
           <div class="md-form">
-            <label data-error="wrong" data-success="right" for="form8">Your Book</label>
-            <textarea #bookBodyInput type="text" id="form8" class="md-textarea form-control" rows="4"
+            <label data-error="wrong" data-success="right" for="form8">topic</label>
+            <textarea #topicInput type="text" id="form8" class="md-textarea form-control" rows="4"
               required="required">{{topic}}</textarea>
-  
           </div>
+
+          <div class="md-form">
+              <label data-error="wrong" data-success="right" for="form41">language</label>
+              <textarea #languageInput type="text" id="form41" class="md-textarea form-control" rows="4"
+                required="required">{{language}}</textarea>
+            </div>
+
           <div class="modal-footer">
             <button type="submit" class="btn btn-outline-dark"
-              (click)="updateBook(titleInput.value,descriptionInput.value,bookBodyInput.value)">Edit Book</button>
+              (click)="updateBook(titleInput.value,authorInput.value,topicInput.value,languageInput.value)">Save</button>
           </div>
           <label style="color:green;">{{successMessage}}</label>
         </ng-template>
         <!-- Modal -->
+
   
         <hr>
   
