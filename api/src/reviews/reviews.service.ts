@@ -27,7 +27,7 @@ export class ReviewsService {
         const reviewDTO = {
             id: review.id,
             user: await review.user,
-            rating: review.ratingType,
+            ratingType: review.ratingType,              //ratingType
             comment: review.comment,
             timestamp: review.timestamp,
         };
