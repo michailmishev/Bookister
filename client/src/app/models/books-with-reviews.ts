@@ -10,7 +10,9 @@ export interface BookWithReviews {
     timestamp: Date;
     averageRating: string;
     isTaken: boolean;
+
     user: ShowUser;
-    // numberOfReviews: number;
+    numberOfReviews: number;
     reviews: ShowReview[];
 }
+
