@@ -19,6 +19,23 @@
 
 
 
+  #isFree {
+    text-transform: lowercase;
+    font-weight: lighter;
+    /* color: #00cc00; */
+    color: #0be683;
+}
+
+#isTaken {
+    text-transform: lowercase;
+    font-weight: lighter;
+    color: #ff4000;
+}
+
+
+
+
+
   /* ------------ 5 stars rating * * * * * ------------ */
 
   .stars-outer {

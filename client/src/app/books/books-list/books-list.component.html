@@ -8,7 +8,7 @@
         <th scope="col" style="width: 10%">Language</th>
         <!-- <th scope="col" style="width: 10%">Date added</th> -->
         <th scope="col" style="width: 10%">Average Rating</th>
-        <th scope="col" style="width: 10%">Is it Taken?</th>
+        <th scope="col" style="width: 10%">Availability</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +25,8 @@
         </td> -->
         <!--  -->
         <td>{{book.averageRating}}</td>
-        <td>{{book.isTaken}}</td>
+        <td *ngIf="!book.isTaken;" id="isFree">available</td>
+        <td *ngIf="book.isTaken;" id="isTaken">taken</td>
         <!-- <td class="text-center">{{book.numberOfReviews}}</td> -->
       </tr>
     </tbody>
