@@ -33,6 +33,10 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   public successMessage: any;
   public isBanned: boolean;
 
+  //  ------------------
+  // 
+  //  -----------------
+
 
 
   constructor(
@@ -51,7 +55,10 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.activatedRoute.params.subscribe(
       params => {
         this.bookSubscription = this.booksDataServices.getSingleBook(params.id).subscribe((data: BookWithReviews) => {
+          
           // this.book = data;
+        
+          
         },
           (err: any) => {
             if (err.status === 404) {
@@ -90,6 +97,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
 
 
+  // -------------------- ! ! ! ! ! ! ! ! ----------------------------
   editReview(reviewId: string, reviewBody) {
     if (reviewBody.length >= 1) {
       this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, reviewBody).subscribe((data) => {

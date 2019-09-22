@@ -10,6 +10,6 @@ export interface BookWithoutReviews {
   averageRating: string;
   isTaken: boolean;
 
-  numberOfReviews: number;
   reviews: ShowReview[];
+  numberOfReviews: number;    // !
 }

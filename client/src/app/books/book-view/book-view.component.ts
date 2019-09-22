@@ -42,12 +42,11 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public author: string;
   public topic: string;
   public language: string;
-  // public bookToUpdate: string;
+  public bookToUpdate: string;
   //
   public successMessage: any;
   public showEditButton: boolean;
   public showDeleteButton: boolean;
-  public showCreateButton: boolean;
   public isBanned: boolean;
 
   constructor(
@@ -70,13 +69,17 @@ export class BookViewComponent implements OnInit, OnDestroy {
           this.topic = data.topic;
           this.language = data.language;
 
-          // const reversed = this.authService.reverseToken();
+          // this.bookToUpdate = data.body;
+
+          const reversed = this.authService.reverseToken();
           const isAdmin = this.authService.setAdminStatus();
 
-          if (isAdmin === 1) {
-            this.showEditButton = true;
+          // if (data.author.username === reversed.username) {
+          //   this.showEditButton = true;
+          //   this.showDeleteButton = true;
+          // }
+          if ( isAdmin === 1) {
             this.showDeleteButton = true;
-            this.showCreateButton = true;
           }
         },
           (err: any) => {

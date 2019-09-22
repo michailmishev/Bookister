@@ -2,15 +2,15 @@
     <div class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
-        <h1 class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}}</h1>    <!-- locked ? ? ? -->
+        <h1 class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}} <span id="availability">{{book.isTaken}}</span></h1>
         <div class="row">
         </div>
         <hr>
         <p class="lead">by {{book.author}}</p>
-        <p>{{book.topic}}</p>
-        <p>{{book.language}}</p>
-        <p>{{book.averageRating}}</p>
-        <p>{{book.isTaken}}</p>
+        <p class="lead">{{book.topic}}</p>
+        <p class="lead">in {{book.language}}</p>
+        <p class="lead">rating: {{book.averageRating}} / 5</p>
+        <!-- <p>{{book.isTaken}}</p> -->
   
         <hr>
         
