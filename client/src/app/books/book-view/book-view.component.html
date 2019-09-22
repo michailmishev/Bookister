@@ -103,19 +103,14 @@
         <!--  -->
         <!-- take book -->
         <button *ngIf="!book.isTaken" type="button" id="takeBookButton" class="btn btn-outline-success mr-1"
-          value="Taken" #ratingType
-          (click)="takeBook(ratingType.value)">Take the Book</button>
-
-        <!-- <span>{{ratingType.value}}</span> -->
-        
-
+          (click)="takeBook('Taken')">Take the Book</button>
 
         <!-- return book -->
-        <!-- <button *ngIf="showDeleteButton" type="button" class="btn btn-outline-danger mr-1"
-          (click)="deleteBook()">Delete</button> -->
+        <button *ngIf="book.isTaken" type="button" id="returnBookButton" class="btn btn-outline-warning mr-1"
+          (click)="takeBook('Returned')">Return the Book</button>
         <!--  -->
         
-        <label style="color:#56b0d1;">{{successMessage}}</label>
+        <label id="successMessageLabel" style="color:#56b0d1;">{{successMessage}}</label>
 
         <hr *ngIf="!book.isTaken">
         <!-- <hr *ngif="authorizedToReturn"> -->

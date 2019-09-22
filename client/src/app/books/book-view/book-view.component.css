@@ -24,6 +24,14 @@
     /* float: right; */
 }
 
+#returnBookButton {
+    margin-left: 20px;
+}
+
+#successMessageLabel {
+    margin-left: 10px;
+}
+
 #review-title {
     text-align: center;
     /* text-decoration: underline; */

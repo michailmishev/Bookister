@@ -38,6 +38,7 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public updateBookSubscription: Subscription;
   public deleteBookSubscription: Subscription;
   public takeBookSubscription: Subscription;
+  public returnBookSubscription: Subscription;
   
   public title: string;
   public author: string;
@@ -122,6 +123,9 @@ export class BookViewComponent implements OnInit, OnDestroy {
     if (this.takeBookSubscription) {
       this.takeBookSubscription.unsubscribe();
     }
+    if (this.returnBookSubscription) {
+      this.returnBookSubscription.unsubscribe();
+    }
   }
 
 
@@ -142,7 +146,6 @@ export class BookViewComponent implements OnInit, OnDestroy {
 
 
   public takeBook(borrowType: string) {
-
     const takeBookBody = {
       borrowType
     };
@@ -159,15 +162,37 @@ export class BookViewComponent implements OnInit, OnDestroy {
           }, 1000);
           this.router.navigate([`/books/${params.id}`]);
         }, (err: any) => {
-          this.successMessage = 'Book cannot be taken!';
+          this.successMessage = "Book can't be taken at the moment!";
         });
       });
   }
 
-  // ---------------------
-  
 
-  // ---------------------
+
+  public returnBook(borrowType: string) {
+
+    const returnBookBody = {
+      borrowType
+    };
+
+    this.routeParamsSubscription = this.activatedRoute.params.subscribe(
+      params => {
+        this.bookSubscription.unsubscribe();
+        this.returnBookSubscription = this.booksDataServices.returnBook(params.id, returnBookBody).subscribe((data) => {
+          if (data.message === 'Book has been returned successfully!') {
+            this.successMessage = data.message;
+          }
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+          this.router.navigate([`/books/${params.id}`]);
+        }, (err: any) => {
+          this.successMessage = "Book can't be returned at the moment!";
+        });
+      });
+  }
+
+
 
 
   public updateBook(title, author, topic, language) {
