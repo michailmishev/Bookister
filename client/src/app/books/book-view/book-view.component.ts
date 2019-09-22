@@ -93,14 +93,16 @@ export class BookViewComponent implements OnInit, OnDestroy {
 
   }
 
-  // ----------------
-  public isThereAverageRating(averageRating: string) {      // number?
+
+  public isThereAverageRating(averageRating: string) {
     if (averageRating !== null) {
       return true;
     }
     return false;
   }
-  //
+
+
+
 
   ngOnDestroy() {
     this.routeParamsSubscription.unsubscribe();

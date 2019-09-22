@@ -1,6 +1,21 @@
-#availability {
-    font-size: 16px;
-    color: green;
+#isFree {
+    font-size: 21px;
+    text-transform: lowercase;
+    font-weight: initial;
+    color: #00cc00;
+    float: right;
+    margin-top: 25px;
+    margin-right: 20px;
+}
+
+#isTaken {
+    font-size: 21px;
+    text-transform: lowercase;
+    font-weight: initial;
+    color: #ff4000;
+    float: right;
+    margin-top: 25px;
+    margin-right: 20px;
 }
 
 #review-title {

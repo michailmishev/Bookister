@@ -2,7 +2,11 @@
     <div    id="main"    class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
-        <h1 id="booktitleid" class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}} <span id="availability">{{book.isTaken}}</span></h1>
+        <h1 id="booktitleid" class="mt-4 text-capitalize">
+          <span class="oi oi-lock-locked"></span> {{book.title}} 
+          <span *ngIf="!book.isTaken;" id="isFree">available</span>
+          <span *ngIf="book.isTaken;" id="isTaken">taken</span>
+        </h1>
         <div class="row">
         </div>
         <hr>
