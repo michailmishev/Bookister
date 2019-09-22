@@ -2,7 +2,7 @@ import { ShowUser } from './show-user';
 
 export interface ShowReview {
   id: string;
-  author: ShowUser;
+  user: ShowUser;
   ratingType: string;
   comment: string;
   timestamp: Date;

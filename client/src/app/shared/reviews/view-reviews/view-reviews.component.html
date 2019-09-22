@@ -1,20 +1,20 @@
 
-<div class="media mb-4" *ngFor="let review of book.reviews">
+<div class="media mb-4" *ngFor="let review of book.review">
     <img id="user-icon" class="d-flex mr-3 rounded-circle" src="../assets/user-icons/user-icon.svg" alt="">
     <div class="media-body">
-      <a class="h5" (click)="selectUser(review.author.id)"
-        *ngIf="!review.author.isDeleted">{{review.author.username}}</a>
-      <div class="h5 text-danger" *ngIf="review.author.isDeleted">DELETED</div>
+      <a id="click-on-user" class="h5" (click)="selectUser(review.user.id)"
+        *ngIf="!review.user.isDeleted">{{review.user.username}}</a>
+      <div class="h5 text-danger" *ngIf="review.user.isDeleted">DELETED</div>
       <hr>
-      {{review.timestamp | date:"short"}}
-      <hr>
-      {{review.ratingType}}
+      <!-- {{review.timestamp | date:"short"}}
+      <hr> -->
+      {{review.ratingType}} (out of 5)
       <hr>
       {{review.comment}}
       <hr>
-      <button *ngIf="showButtons(review.author.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+      <button *ngIf="showButtons(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
         (click)="open(content)">Edit</button>
-      <button *ngIf="showButtons(review.author.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+      <button *ngIf="showButtons(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
         (click)="deleteReview(review.id)">Delete</button>
   
   

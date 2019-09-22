@@ -33,9 +33,6 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   public successMessage: any;
   public isBanned: boolean;
 
-  //  ------------------
-  // 
-  //  -----------------
 
 
 
@@ -55,10 +52,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.activatedRoute.params.subscribe(
       params => {
         this.bookSubscription = this.booksDataServices.getSingleBook(params.id).subscribe((data: BookWithReviews) => {
-          
           // this.book = data;
-        
-          
         },
           (err: any) => {
             if (err.status === 404) {
@@ -71,6 +65,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
 
 
+//
   public showButtons(authorId: string) {
     const reversed = this.authService.reverseToken();
     const isAdmin = this.authService.setAdminStatus();
@@ -79,7 +74,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-
+//
 
   selectUser(userId: string) {
     this.router.navigate(['/users/', userId]);

@@ -12,7 +12,7 @@ export interface BookWithReviews {
     isTaken: boolean;
 
     user: ShowUser;
-    reviews: ShowReview[];
+    review: ShowReview[];
     numberOfReviews: number;    // !
 }
 
