@@ -44,11 +44,14 @@
         
         
         <button *ngIf="showEditButton" type="button" class="btn btn-outline-dark mr-1"
-          (click)="open(content)">Edit</button>
+          (click)="open(content)">Edit the Book</button>
         <button *ngIf="showDeleteButton" type="button" class="btn btn-outline-danger mr-1"
-          (click)="deleteBook()">Delete</button>
+          (click)="deleteBook()">Delete the Book</button>
   
-      
+
+        
+
+
         <!-- Modal -->
         <ng-template #content let-modal let-c="close" let-d="dismiss">
           
@@ -93,8 +96,33 @@
         <!-- Modal -->
 
   
-        <hr>
+        <hr *ngIf="showEditButton">
   
+
+
+        <!--  -->
+        <!-- take book -->
+        <button *ngIf="!book.isTaken" type="button" id="takeBookButton" class="btn btn-outline-success mr-1"
+          value="Taken" #ratingType
+          (click)="takeBook(ratingType.value)">Take the Book</button>
+
+        <!-- <span>{{ratingType.value}}</span> -->
+        
+
+
+        <!-- return book -->
+        <!-- <button *ngIf="showDeleteButton" type="button" class="btn btn-outline-danger mr-1"
+          (click)="deleteBook()">Delete</button> -->
+        <!--  -->
+        
+        <label style="color:#56b0d1;">{{successMessage}}</label>
+
+        <hr *ngIf="!book.isTaken">
+        <!-- <hr *ngif="authorizedToReturn"> -->
+
+
+
+
         <br />
         <p id="review-title" class="h4">Reviews</p>
         <br />

@@ -5,6 +5,7 @@ import { BookWithoutReviews } from '../../models/books-without-reviews';
 import { BookWithReviews } from 'src/app/models/books-with-reviews';
 import { CreateBookModel } from 'src/app/models/create-book';
 import { UpdateBookModel } from 'src/app/models/update-book';
+import { TakeBookModel } from 'src/app/models/take-book';
 
 
 
@@ -33,5 +34,12 @@ export class BooksDataServices {
     return this.http.put(`http://localhost:3000/books/${bookId}`, updatedBook);
   }
 
+  public takeBook(bookId: string, borrowType: TakeBookModel): Observable<any> {
+    return this.http.post(`http://localhost:3000/books/${bookId}/libraryEvents`, borrowType);
+  }
+
+  public returnBook(bookId: string, borrowType: TakeBookModel): Observable<any> {
+    return this.http.post(`http://localhost:3000/books/${bookId}/libraryEvents`, borrowType);
+  }
 
 }

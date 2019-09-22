@@ -22,6 +22,7 @@ import {
 import {
   NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
+import { TakeBookModel } from 'src/app/models/take-book';
 
 
 @Component({
@@ -35,19 +36,20 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public routeParamsSubscription: Subscription;
   public bookSubscription: Subscription;
   public updateBookSubscription: Subscription;
-  // public lockBookSubscription: Subscription;
   public deleteBookSubscription: Subscription;
-  // title, author, topic, language
+  public takeBookSubscription: Subscription;
+  
   public title: string;
   public author: string;
   public topic: string;
   public language: string;
   public bookToUpdate: string;
-  //
+  
   public successMessage: any;
   public showEditButton: boolean;
   public showDeleteButton: boolean;
   public isBanned: boolean;
+
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -80,6 +82,7 @@ export class BookViewComponent implements OnInit, OnDestroy {
           // }
           if ( isAdmin === 1) {
             this.showDeleteButton = true;
+            this.showEditButton = true;
           }
         },
           (err: any) => {
@@ -102,6 +105,9 @@ export class BookViewComponent implements OnInit, OnDestroy {
   }
 
 
+  //
+
+  //
 
 
   ngOnDestroy() {
@@ -112,6 +118,9 @@ export class BookViewComponent implements OnInit, OnDestroy {
     }
     if (this.deleteBookSubscription) {
       this.deleteBookSubscription.unsubscribe();
+    }
+    if (this.takeBookSubscription) {
+      this.takeBookSubscription.unsubscribe();
     }
   }
 
@@ -130,6 +139,35 @@ export class BookViewComponent implements OnInit, OnDestroy {
   open(content) {
     this.modalService.open(content);
   }
+
+
+  public takeBook(borrowType: string) {
+
+    const takeBookBody = {
+      borrowType
+    };
+
+    this.routeParamsSubscription = this.activatedRoute.params.subscribe(
+      params => {
+        this.bookSubscription.unsubscribe();
+        this.takeBookSubscription = this.booksDataServices.takeBook(params.id, takeBookBody).subscribe((data) => {
+          if (data.message === 'Book has been taken successfully!') {
+            this.successMessage = data.message;
+          }
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+          this.router.navigate([`/books/${params.id}`]);
+        }, (err: any) => {
+          this.successMessage = 'Book cannot be taken!';
+        });
+      });
+  }
+
+  // ---------------------
+  
+
+  // ---------------------
 
 
   public updateBook(title, author, topic, language) {

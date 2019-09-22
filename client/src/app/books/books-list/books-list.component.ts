@@ -27,7 +27,13 @@ export class BooksListComponent implements OnInit, OnDestroy {
         this.books = books;
 
         this.books.forEach((book: BookWithoutReviews, index: number) => {
-          book.numberOfReviews = book.reviews.length;
+
+          // if (book.reviews !== undefined) {
+            book.numberOfReviews = book.reviews.length;
+          // }
+
+          // book.numberOfReviews = book.reviews.length;
+
         });
         this.books.sort((a, b) => {
           const c = new Date(a.timestamp).valueOf();
