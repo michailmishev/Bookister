@@ -6,8 +6,9 @@
 }
 
 .my-footer-name {
+    font-size: 14px;
     padding-left: 12px;
-    padding-right: 12px;
+    padding-right: 14px;
 }
 
 .navbar-nav {
@@ -17,5 +18,5 @@
 
 #created-by {
     position: absolute;
-    right: 150px;
+    right: 140px;
 }

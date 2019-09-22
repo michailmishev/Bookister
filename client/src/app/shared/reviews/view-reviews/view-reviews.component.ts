@@ -65,8 +65,16 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
 
 
-//
-  public showButtons(authorId: string) {
+// -------------------
+  public showEdit(authorId: string) {
+    const reversed = this.authService.reverseToken();
+    if (authorId === reversed.id) {
+      return true;
+    }
+    return false;
+  }
+// ------------------
+  public showDelete(authorId: string) {
     const reversed = this.authService.reverseToken();
     const isAdmin = this.authService.setAdminStatus();
     if (authorId === reversed.id || isAdmin === 1) {
@@ -74,6 +82,15 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+// -------------------
+  // public showButtons(authorId: string) {
+  //   const reversed = this.authService.reverseToken();
+  //   const isAdmin = this.authService.setAdminStatus();
+  //   if (authorId === reversed.id || isAdmin === 1) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 //
 
   selectUser(userId: string) {

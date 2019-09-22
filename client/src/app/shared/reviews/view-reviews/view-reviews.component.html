@@ -12,9 +12,9 @@
       <hr>
       {{review.comment}}
       <hr>
-      <button *ngIf="showButtons(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+      <button *ngIf="showEdit(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
         (click)="open(content)">Edit</button>
-      <button *ngIf="showButtons(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
+      <button *ngIf="showDelete(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
         (click)="deleteReview(review.id)">Delete</button>
   
   
