@@ -35,34 +35,6 @@ export class CreateReviewsComponent implements OnInit {
 
 }
 
-// --------------------------------------------------------
-
-
-
-// public createBook(title: string, author: string, topic: string, language: string) {
-//   const book = {
-//     title,
-//     author,
-//     topic,
-//     language
-//   };
-
-//   this.createBookSubscription = this.bookService.createBook(book).subscribe((data) => {
-//     if (data.message === 'Book has been submitted successfully!') {
-//       this.successMessage = data.message;
-//     }
-//     setTimeout(() => {
-//       location.reload();
-//     }, 1500);
-
-//     this.router.navigate(['/books']);
-//   }, (err: any) => {
-//     this.successMessage = 'Fill all fields';
-
-//   });
-// }
-  
-
 
 
 

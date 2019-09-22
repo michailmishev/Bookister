@@ -1,15 +1,39 @@
-<div class="container" *ngIf="book">
-    <div class="row">
+<div   id="wrap"   class="container" *ngIf="book">
+    <div    id="main"    class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
-        <h1 class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}} <span id="availability">{{book.isTaken}}</span></h1>
+        <h1 id="booktitleid" class="mt-4 text-capitalize"><span class="oi oi-lock-locked"></span> {{book.title}} <span id="availability">{{book.isTaken}}</span></h1>
         <div class="row">
         </div>
         <hr>
-        <p class="lead">by {{book.author}}</p>
-        <p class="lead">{{book.topic}}</p>
-        <p class="lead">in {{book.language}}</p>
-        <p class="lead">rating: {{book.averageRating}} / 5</p>
+
+        <table id="bookinfotable">
+          <tr>
+              <td class="bookinfotitle lead">rating:</td>
+              <td class="bookinfodata lead">{{book.averageRating}} 
+                <span *ngIf=isThereAverageRating(book.averageRating)>  (out of 5)</span>
+                <span id="noReviewsForThatBook" *ngIf=!isThereAverageRating(book.averageRating)> no reviews yet ☹️ </span>
+              </td>  
+          </tr>
+          <tr>
+              <td class="bookinfotitle lead">author:</td>
+              <td class="bookinfodata lead">{{book.author}}</td>
+          </tr>
+          <tr>
+              <td class="bookinfotitle lead">topic:</td>
+              <td class="bookinfodata lead">{{book.topic}}</td>
+          </tr>
+          <tr>
+              <td class="bookinfotitle lead">language:</td>
+              <td class="bookinfodata lead">{{book.language}}</td>
+            </tr>
+        </table>
+
+        <!-- <p class="lead"><span class="bookinfotitle" >rating: </span> {{book.averageRating}} (out of 5)</p>
+        <p class="lead"><span class="bookinfo">author: </span> {{book.author}}</p>
+        <p class="lead"><span class="bookinfo" >topic: </span> {{book.topic}}</p>
+        <p class="lead"><span class="bookinfo" >language: </span> {{book.language}}</p> -->
+        
         <!-- <p>{{book.isTaken}}</p> -->
   
         <hr>
@@ -23,6 +47,7 @@
       
         <!-- Modal -->
         <ng-template #content let-modal let-c="close" let-d="dismiss">
+          
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">   <!-- "d('Cross click')" -->
@@ -58,6 +83,7 @@
             <button type="submit" class="btn btn-outline-dark"
               (click)="updateBook(titleInput.value,authorInput.value,topicInput.value,languageInput.value)">Save</button>
           </div>
+
           <label style="color:green;">{{successMessage}}</label>
         </ng-template>
         <!-- Modal -->

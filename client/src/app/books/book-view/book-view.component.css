@@ -8,3 +8,42 @@
     /* text-decoration: underline; */
     margin-top: 50px;
 }
+
+
+.bookinfotitle {
+    font-size: 16px;
+    /* font-style: italic;
+    font-weight: thin; */
+}
+
+.bookinfodata {
+    font-size: 23px;
+}
+
+#bookinfotable tr td{
+    padding: 10px;
+}
+
+#booktitleid {
+    margin-left: 23px;
+}
+
+#noReviewsForThatBook {
+    color: grey;
+    font-size: 14px;
+    /* font-style: italic; */
+    font-weight: lighter;
+}
+
+
+
+/* ------- stop footer from overlapping the content above: -------- */
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+    overflow:auto;
+    padding-bottom: 100px; /* this needs to be bigger than footer height*/
+}
+

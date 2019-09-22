@@ -1,12 +1,30 @@
 <div class="card my-4">
-    <h5 class="card-header">Leave a Review:</h5>
+    <h5 class="card-header">Leave a Review</h5>
     <div class="card-body">
       <form>
+        
         <div class="form-group">
-          <textarea class="form-control" rows="3" required minlength="1" #body></textarea>
+          <form #ratingInput >
+            <input type="radio" name="rating" value="1"> Very Bad<br>
+            <input type="radio" name="rating" value="2"> Poor<br>
+            <input type="radio" name="rating" value="3"> OK<br>
+            <input type="radio" name="rating" value="4"> Good<br>
+            <input type="radio" name="rating" value="5"> Excellent
+          </form>
+          <br>
         </div>
-        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(body.value); body.value='  '">
+
+      
+        <div class="form-group">
+          <label data-error="wrong" data-success="right" for="form29">Comment:</label>
+          <textarea #commentInput class="form-control" type="text" rows="3" required minlength="1"></textarea>
+        </div>
+
+        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(ratingInput.value, commentInput.value)">
           Submit</div>
+
+        <!-- <label style="color:green;">{{reviewSuccessMessage}}</label>   -->
+
       </form>
     </div>
   </div>
