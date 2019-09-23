@@ -9,6 +9,7 @@ export interface BookWithoutReviews {
   timestamp: Date;
   averageRating: string;
   isTaken: boolean;
+  takenBy: string;
 
   reviews: ShowReview[];
   numberOfReviews: number;    // !

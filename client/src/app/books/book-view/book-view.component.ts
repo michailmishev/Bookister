@@ -44,11 +44,13 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public author: string;
   public topic: string;
   public language: string;
+  public takenBy: string;
   public bookToUpdate: string;
   
   public successMessage: any;
   public showEditButton: boolean;
   public showDeleteButton: boolean;
+  public hasRightToReturnTheBook: boolean;
   public isBanned: boolean;
 
 
@@ -71,20 +73,24 @@ export class BookViewComponent implements OnInit, OnDestroy {
           this.author = data.author;    // user?
           this.topic = data.topic;
           this.language = data.language;
+          this.takenBy = data.takenBy;
 
           // this.bookToUpdate = data.body;
 
           const reversed = this.authService.reverseToken();
           const isAdmin = this.authService.setAdminStatus();
 
-          // if (data.author.username === reversed.username) {
-          //   this.showEditButton = true;
-          //   this.showDeleteButton = true;
-          // }
+          if (data.takenBy === reversed.username) {
+            this.hasRightToReturnTheBook = true;
+          }
+
           if ( isAdmin === 1) {
             this.showDeleteButton = true;
             this.showEditButton = true;
           }
+
+
+
         },
           (err: any) => {
             if (err.status === 404) {
@@ -106,9 +112,11 @@ export class BookViewComponent implements OnInit, OnDestroy {
   }
 
 
-  //
+  // //
+  // public hasRightToReturnTheBook() {
 
-  //
+  // }
+  // //
 
 
   ngOnDestroy() {

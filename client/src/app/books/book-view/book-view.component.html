@@ -106,7 +106,7 @@
           (click)="takeBook('Taken')">Take the Book</button>
 
         <!-- return book -->
-        <button *ngIf="book.isTaken" type="button" id="returnBookButton" class="btn btn-outline-warning mr-1"
+        <button *ngIf="hasRightToReturnTheBook" type="button" id="returnBookButton" class="btn btn-outline-warning mr-1"
           (click)="takeBook('Returned')">Return the Book</button>
         <!--  -->
         
