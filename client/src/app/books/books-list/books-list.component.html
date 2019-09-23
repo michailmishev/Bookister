@@ -25,9 +25,12 @@
         </td> -->
         <!--  -->
         <td>{{book.averageRating}}</td>
+        <!-- availabe / taken / taken by you -->
         <td *ngIf="!book.isTaken;" id="isFree">available</td>
-        <td *ngIf="book.isTaken;" id="isTaken">taken</td>
-        <!-- <td class="text-center">{{book.numberOfReviews}}</td> -->
+        <td *ngIf="book.takenBy === logedInUser" id="isTakenByYou">in you</td>
+        <td *ngIf="book.isTaken && !(book.takenBy === logedInUser)" id="isTaken">taken</td>
+        
+
       </tr>
     </tbody>
     <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="" nextLabel="">

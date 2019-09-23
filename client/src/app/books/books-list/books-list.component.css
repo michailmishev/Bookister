@@ -19,20 +19,24 @@
 
 
 
-  #isFree {
+#isFree {
     text-transform: lowercase;
-    font-weight: lighter;
+    font-weight: initial;
     /* color: #00cc00; */
     color: #0be683;
 }
 
 #isTaken {
     text-transform: lowercase;
-    font-weight: lighter;
+    font-weight: inherit;
     color: #ff4000;
 }
 
-
+#isTakenByYou {
+  text-transform: lowercase;
+  font-weight: initial;
+  color: #ffc038;
+}
 
 
 

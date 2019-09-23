@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { BooksDataServices } from 'src/app/core/services/books-data.service';
 import { BookWithoutReviews } from '../../models/books-without-reviews';
 import { ReviewsDataService } from 'src/app/core/services/reviews-data.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-books-list',
@@ -16,9 +17,11 @@ export class BooksListComponent implements OnInit, OnDestroy {
   public books: BookWithoutReviews[] = [];
   private booksSubscription: Subscription;
 
-
+  public logedInUser: string;       // -------------------------
+  
   constructor(
     private readonly booksDataService: BooksDataServices,
+    private readonly authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -27,13 +30,9 @@ export class BooksListComponent implements OnInit, OnDestroy {
         this.books = books;
 
         this.books.forEach((book: BookWithoutReviews, index: number) => {
-
           // if (book.reviews !== undefined) {
             book.numberOfReviews = book.reviews.length;
           // }
-
-          // book.numberOfReviews = book.reviews.length;
-
         });
         this.books.sort((a, b) => {
           const c = new Date(a.timestamp).valueOf();
@@ -42,7 +41,14 @@ export class BooksListComponent implements OnInit, OnDestroy {
         });
       }
     );
+
+    this.logedInUser = this.authService.reverseToken().username;
+        // (book.takenBy === reversed.username)
+
+
+
   }
+
 
   selectBook(book: BookWithoutReviews) {
     this.selectedBook.emit(book.id);

@@ -39,14 +39,13 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public deleteBookSubscription: Subscription;
   public takeBookSubscription: Subscription;
   public returnBookSubscription: Subscription;
-  
+
   public title: string;
   public author: string;
   public topic: string;
   public language: string;
   public takenBy: string;
   public bookToUpdate: string;
-  
   public successMessage: any;
   public showEditButton: boolean;
   public showDeleteButton: boolean;
@@ -112,12 +111,6 @@ export class BookViewComponent implements OnInit, OnDestroy {
   }
 
 
-  // //
-  // public hasRightToReturnTheBook() {
-
-  // }
-  // //
-
 
   ngOnDestroy() {
     this.routeParamsSubscription.unsubscribe();
@@ -178,7 +171,6 @@ export class BookViewComponent implements OnInit, OnDestroy {
 
 
   public returnBook(borrowType: string) {
-
     const returnBookBody = {
       borrowType
     };
