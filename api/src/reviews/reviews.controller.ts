@@ -115,12 +115,10 @@ export class ReviewsController {
 
         const createdReview = await this.reviewsService.updateReview(review1, reviewId, user);
 
-        //
-        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
-        if (!updateBookAveragaRating) {
-            throw new BadRequestException('There was a problem with updating the average rating of the book!');
-        }
-        //
+        // const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        // if (!updateBookAveragaRating) {
+        //     throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        // }
 
         return {
             message: 'Review has been updated successfully!',

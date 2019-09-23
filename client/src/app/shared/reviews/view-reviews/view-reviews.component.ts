@@ -29,7 +29,11 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   public bookSubscription: Subscription;
   public showDeleteReviewButton: boolean;
   public showEditReviewButton: boolean;
-  public reviewToUpdate: string;
+
+  // public reviewToUpdate: string;  // ?
+  public ratingType: number;
+  public comment: string;
+
   public successMessage: any;
   public isBanned: boolean;
 
@@ -65,7 +69,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
 
 
-// -------------------
+
   public showEdit(authorId: string) {
     const reversed = this.authService.reverseToken();
     if (authorId === reversed.id) {
@@ -73,7 +77,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-// ------------------
+
   public showDelete(authorId: string) {
     const reversed = this.authService.reverseToken();
     const isAdmin = this.authService.setAdminStatus();
@@ -82,7 +86,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-// -------------------
+
   // public showButtons(authorId: string) {
   //   const reversed = this.authService.reverseToken();
   //   const isAdmin = this.authService.setAdminStatus();
@@ -91,7 +95,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   //   }
   //   return false;
   // }
-//
+
 
 
   // --------- lame :( --------
@@ -132,6 +136,7 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
   // -----------------------------
 
+
   selectUser(userId: string) {
     this.router.navigate(['/users/', userId]);
   }
@@ -141,7 +146,24 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
     this.deleteReviewSubscription = this.reviewsDataServices.deleteReview(reviewId).subscribe((data) => {
       this.deletedReviewEvent.emit();
     });
+    this.reviewUpdated();
   }
+
+
+  // ----------- In order to update average rating of the book: ----------
+  reviewUpdated() {
+    this.routeParamsSubscription.unsubscribe();
+    this.routeParamsSubscription = this.activatedRoute.params.subscribe(
+      params => {
+        this.bookSubscription.unsubscribe();
+        this.bookSubscription = this.booksDataServices.getSingleBook(params.id).subscribe((data: BookWithReviews) => {
+          this.book = data;
+        });
+      }
+    );
+  }
+  // ----------- ---------- ---------- ----------
+
 
   open(content) {
     this.modalService.open(content);
@@ -149,7 +171,6 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
 
 
 
-  // -------------------- ! ! ! ! ! ! ! ! ----------------------------
   editReview(reviewId: string, ratingType: number, comment: string) {
     if (comment.length >= 1 && ratingType.toString().length >= 1 ) {
       ratingType = +ratingType;
@@ -160,58 +181,22 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
 
       this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, updateReviewBody).subscribe((data) => {
 
-        //
-        // ???
-        //
         if (data.message === 'Review has been updated successfully!') {
           this.successMessage = data.message;
         }
+
         this.editedReviewEvent.emit();
         this.modalService.dismissAll();
 
+        location.reload();    // couldn't reload average rating after editing a review
       });
 
+      // this.reviewUpdated();
+      // this.router.navigate([`/books/${this.book.id}`]);
+      // location.reload();
 
     }
   }
-
-
-
-  // // ---------------------------------- ---------------------------------- ---------------------------------- 
-  //   if (reviewBody.length >= 1) {
-  //     this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, reviewBody).subscribe((data) => {
-  //       this.book = data;                             // ???????
-  //       this.reviewToUpdate = data.reviewBody;
-  //       if (data.message === 'Review has been updated successfully!') {
-  //         this.successMessage = data.message;
-  //       }
-  //       this.editedReviewEvent.emit();
-  //       this.modalService.dismissAll();
-  //     });
-
-
-  //   }
-  // }
-  // ---------------------------------- ---------------------------------- ---------------------------------- 
-  // editComment(commentId: string, commentBody) {
-  //   if (commentBody.length >= 1) {
-  //     this.editCommentSubscription = this.commentsDataServices.editComment(commentId, commentBody).subscribe((data) => {
-  //       this.post = data;
-  //       this.commentToUpdate = data.commentBody;
-  //       if (data.message === 'Comment has been updated successfully!') {
-  //         this.successMessage = data.message;
-  //       }
-  //       this.editedCommentEvent.emit();
-  //       this.modalService.dismissAll();
-  //     });
-  //   }
-  // }
-  // ---------------------------------- ---------------------------------- ---------------------------------- 
-
-
-
-
-
 
 
 

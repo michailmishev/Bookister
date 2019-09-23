@@ -20,7 +20,7 @@ export class ReviewsDataService {
   }
 
   public editReview(reviewId: string, reviewBody: EditReviewModel): Observable<any> {
-    return this.http.put<any>(`http://localhost:3000/books/0/reviews/${reviewId}`, {body: reviewBody});
+    return this.http.put<any>(`http://localhost:3000/books/0/reviews/${reviewId}`, reviewBody);
   }
 
 }

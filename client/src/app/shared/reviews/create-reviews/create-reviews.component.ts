@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ReviewsDataService } from 'src/app/core/services/reviews-data.service';
 //  -------- ------- ------- ------- ------- ------- ------- ------- --------
-import { BookWithReviews } from 'src/app/models/books-with-reviews';  // ----
-import { AuthService } from 'src/app/core/services/auth.service';
-import { forEach } from '@angular/router/src/utils/collection';
+// import { BookWithReviews } from 'src/app/models/books-with-reviews';
+// import { AuthService } from 'src/app/core/services/auth.service';
+// import { forEach } from '@angular/router/src/utils/collection';
 //  -------- ------- ------- ------- ------- ------ ------- ------- ---------
 
 @Component({
@@ -14,56 +14,32 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class CreateReviewsComponent implements OnInit {
 
   public successMessage: any;
-
-  // -----------------------
   public radioButtonValue: any;
-  // -----------------------
 
   @Input()
   bookId: string;
-  //  -------- ------- ------- ------- -------
-  book: BookWithReviews;
-                            // ------- -------
-  //  -------- ------- ------- ------- -------
+  // book: BookWithReviews;    // ------- ------- -------
 
   @Output()
   reviewCreatedEvent = new EventEmitter();
 
   constructor(
     private readonly reviewsDataService: ReviewsDataService,
-    // -------- ------- ---------- --------- ---------------
-    private readonly authService: AuthService,  // ----------
-    // ------- ----------- ------ ------ ------ ------------
+    // private readonly authService: AuthService,      // -------- -------- --------
   ) { }
 
   
-
-  //  -------- ------- ------- ------- --------- ------ -------- -------- --------- --------
+  //  -------- ------- ------- 
   // public userAlreadyLeftReview() {
-  //   const reversed = this.authService.reverseToken();   // reversed.id / reversed.username
-
-  //   const allReviews = this.book.review;
-    
-  //   forEach()
-
-
-  //   this.books.forEach((book: BookWithoutReviews, index: number) => {
+  // }
+  //  -------- ------- ------- 
 
 
 
-  //   if (authorId === reversed.id) {
-  //     return true;
-  //   }
-  //   return false;
-  // }                                    // -------
-  //  -------- ------- ------- ------- --------- ---------- --------- --------- -------- ------
-
-
-  // ---------------------
   setRadioButtonValue(buttonValue: any) {
     this.radioButtonValue = buttonValue;
   }
-  // ---------------------
+
 
 
   createReview(ratingType: number, comment: string) {
@@ -79,7 +55,7 @@ export class CreateReviewsComponent implements OnInit {
       //     this.reviewCreatedEvent.emit();
       //   }
       // );
-
+      //
       this.reviewsDataService.postReview(this.bookId, createReviewBody).subscribe((data) => {
         if (data.message === 'Review has been submitted successfully!') {
           this.successMessage = data.message;
@@ -104,8 +80,3 @@ export class CreateReviewsComponent implements OnInit {
   }
 
 }
-
-
-
-
-
