@@ -144,8 +144,9 @@ export class BooksService {
             }
 
             const avrgRating = sumOfAllReviews / reviewsCount;
+            const avrgRatingRounded = Math.round(avrgRating * 10) / 10;
 
-            bookToBeUpdated.averageRating = avrgRating.toString();
+            bookToBeUpdated.averageRating = avrgRatingRounded.toString();
             const updatedBook = await this.bookRepository.save(bookToBeUpdated);
 
             // console.log(sumOfAllReviews);
