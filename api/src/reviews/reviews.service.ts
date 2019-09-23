@@ -87,10 +87,9 @@ export class ReviewsService {
         }
     }
 
-    // userAlreadyReviewedThisBook
     async userAlreadyReviewedThisBook(bookId: string, autor: any): Promise<string> | undefined {
         const reviewFromThisUserForThatBook: Review = await this.reviewsRepository.findOne({ where:
-            { book: bookId, user: autor }
+            { book: bookId, user: autor, isDeleted: 0 }
         });
         if (!!reviewFromThisUserForThatBook) {
             return 'reviewFromThisUserForThatBookAlreadyExist';

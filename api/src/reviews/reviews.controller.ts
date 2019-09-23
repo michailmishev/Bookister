@@ -61,6 +61,7 @@ export class ReviewsController {
             throw new BadRequestException('In order to leave a review you must read the book first!');
         }
 
+        // doesn't check the deleted reviews:
         const reviewFromThisUserForThatBook = await this.reviewsService.userAlreadyReviewedThisBook(bookId, user);
         if (reviewFromThisUserForThatBook) {
             throw new BadRequestException('You have already left review for this book!');
