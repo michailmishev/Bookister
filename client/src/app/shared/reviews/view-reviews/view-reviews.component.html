@@ -17,6 +17,9 @@
       <button *ngIf="showDelete(review.user.id) && !isBanned" type="button" class="btn btn-outline-dark  "
         (click)="deleteReview(review.id)">Delete</button>
   
+
+
+        <!-- --------- --------- --------- --------- --------- --------- --------- --------- -->
   
       <!-- Modal -->
       <ng-template #content let-modal let-c="close" let-d="dismiss">
@@ -65,7 +68,10 @@
         </div>
       </ng-template>
       <!-- Modal -->
-  
+      <!-- --------- --------- --------- --------- --------- --------- --------- --------- -->
+
+
+
     </div>
   </div>
   

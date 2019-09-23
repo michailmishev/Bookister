@@ -109,20 +109,71 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   }
 
 
+
   // -------------------- ! ! ! ! ! ! ! ! ----------------------------
-  editReview(reviewId: string, reviewBody) {
-    if (reviewBody.length >= 1) {
-      this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, reviewBody).subscribe((data) => {
-        this.book = data;                             // ???????
-        this.reviewToUpdate = data.reviewBody;
+  editReview(reviewId: string, ratingType: number, comment: string) {
+    if (comment.length >= 1 && ratingType.toString().length >= 1 ) {
+      ratingType = +ratingType;
+      const updateReviewBody = {
+        ratingType,
+        comment
+      };
+
+      this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, updateReviewBody).subscribe((data) => {
+
+        //
+        // ???
+        //
         if (data.message === 'Review has been updated successfully!') {
           this.successMessage = data.message;
         }
         this.editedReviewEvent.emit();
         this.modalService.dismissAll();
+
       });
+
+
     }
   }
+
+
+
+  // // ---------------------------------- ---------------------------------- ---------------------------------- 
+  //   if (reviewBody.length >= 1) {
+  //     this.editReviewSubscription = this.reviewsDataServices.editReview(reviewId, reviewBody).subscribe((data) => {
+  //       this.book = data;                             // ???????
+  //       this.reviewToUpdate = data.reviewBody;
+  //       if (data.message === 'Review has been updated successfully!') {
+  //         this.successMessage = data.message;
+  //       }
+  //       this.editedReviewEvent.emit();
+  //       this.modalService.dismissAll();
+  //     });
+
+
+  //   }
+  // }
+  // ---------------------------------- ---------------------------------- ---------------------------------- 
+  // editComment(commentId: string, commentBody) {
+  //   if (commentBody.length >= 1) {
+  //     this.editCommentSubscription = this.commentsDataServices.editComment(commentId, commentBody).subscribe((data) => {
+  //       this.post = data;
+  //       this.commentToUpdate = data.commentBody;
+  //       if (data.message === 'Comment has been updated successfully!') {
+  //         this.successMessage = data.message;
+  //       }
+  //       this.editedCommentEvent.emit();
+  //       this.modalService.dismissAll();
+  //     });
+  //   }
+  // }
+  // ---------------------------------- ---------------------------------- ---------------------------------- 
+
+
+
+
+
+
 
 
   ngOnDestroy() {
