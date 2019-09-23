@@ -16,3 +16,8 @@
 #click-on-user:hover {
   color: cornflowerblue;
 }
+
+.ratingStars {
+  color: grey;
+  font-size: 14px;
+}

@@ -93,6 +93,45 @@ export class ViewReviewsComponent implements OnInit, OnDestroy {
   // }
 //
 
+
+  // --------- lame :( --------
+  public isOneStar(averageRating: any) {
+    const roundedNum = Math.round(averageRating);
+    if (roundedNum === 1) {
+      return true;
+    }
+    return false;
+  }
+  public isTwoStar(averageRating: any) {
+    const roundedNum = Math.round(averageRating);
+    if (roundedNum === 2) {
+      return true;
+    }
+    return false;
+  }
+  public isThreeStar(averageRating: any) {
+    const roundedNum = Math.round(averageRating);
+    if (roundedNum === 3) {
+      return true;
+    }
+    return false;
+  }
+  public isFourStar(averageRating: any) {
+    const roundedNum = Math.round(averageRating);
+    if (roundedNum === 4) {
+      return true;
+    }
+    return false;
+  }
+  public isFiveStar(averageRating: any) {
+    const roundedNum = Math.round(averageRating);
+    if (roundedNum === 5) {
+      return true;
+    }
+    return false;
+  }
+  // -----------------------------
+
   selectUser(userId: string) {
     this.router.navigate(['/users/', userId]);
   }

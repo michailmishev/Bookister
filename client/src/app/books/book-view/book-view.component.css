@@ -71,6 +71,17 @@
     font-weight: lighter;
 }
 
+.ratingStars {
+    color: grey;
+    font-size: 21px;
+  }
+
+#averageRatingNumber {
+    color: grey;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-left: 15px;
+}
 
 
 /* ------- stop footer from overlapping the content above: -------- */

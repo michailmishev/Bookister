@@ -8,7 +8,12 @@
       <hr>
       <!-- {{review.timestamp | date:"short"}}
       <hr> -->
-      {{review.ratingType}} (out of 5)
+      <!-- {{review.ratingType}} (out of 5) -->
+      <span class="ratingStars" *ngIf=isOneStar(review.ratingType)>★☆☆☆☆</span>
+      <span class="ratingStars" *ngIf=isTwoStar(review.ratingType)>★★️️️️️️☆☆☆</span>
+      <span class="ratingStars" *ngIf=isThreeStar(review.ratingType)>★★★️️️☆☆</span>
+      <span class="ratingStars" *ngIf=isFourStar(review.ratingType)>★★★★☆</span>
+      <span class="ratingStars" *ngIf=isFiveStar(review.ratingType)>★★★★★  </span>
       <hr>
       {{review.comment}}
       <hr>
