@@ -36,4 +36,8 @@ export class ShowBookWithoutReviewsDTO {
     @IsBoolean()
     isTaken: boolean;
 
+    @Expose()
+    @IsString()
+    takenBy: string;
+
 }

@@ -70,7 +70,7 @@ export class LibraryEventsService {
         libraryEventToBeCreated.user = Promise.resolve(author);
 
         //
-        
+
         //
 
         const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);

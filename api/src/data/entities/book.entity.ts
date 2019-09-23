@@ -44,6 +44,9 @@ export class Book {
     @Column('boolean', {default: false})
     isTaken: boolean;
 
+    @Column('nvarchar', { default: null })
+    takenBy: string;
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - -
 
     @OneToMany(type => LibraryEvent, libraryEvent => libraryEvent.book)

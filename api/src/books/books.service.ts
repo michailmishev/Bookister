@@ -36,6 +36,7 @@ export class BooksService {
             timestamp: book.timestamp,
             averageRating: book.averageRating,
             isTaken: book.isTaken,
+            takenBy: book.takenBy,
             review: await Promise.all((reviews.filter((review: Review) => review.isDeleted === false))
                 .map(async (x: Review) => await this.reviewsService.createReviewDTO(x))),
         };
@@ -156,6 +157,26 @@ export class BooksService {
                 return 'Books average rating was successfully updated!';
             }
         }
+    }
+
+    async updateBookIsTakenby(bookId: string, username: string, borrowType: BorrowTypeEnum): Promise<string> | undefined {
+
+        const bookToBeUpdated = await this.bookRepository.findOne({id: bookId, isDeleted: false});
+        if (!bookToBeUpdated) {
+            return undefined;
+        }
+
+        if (borrowType === BorrowTypeEnum.Returned) {
+            bookToBeUpdated.takenBy = null;
+        } else if (borrowType === BorrowTypeEnum.Taken) {
+            bookToBeUpdated.takenBy = username;
+        }
+
+        const updatedBook = await this.bookRepository.save(bookToBeUpdated);
+        if (!!updatedBook) {
+            return 'Book Taken By Succeccfully Changed!';
+        }
+
     }
 
     //

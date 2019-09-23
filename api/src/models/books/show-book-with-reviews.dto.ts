@@ -38,6 +38,10 @@ export class ShowBookWithReviewsDTO {
     isTaken: boolean;
 
     @Expose()
+    @IsString()
+    takenBy: string;
+
+    @Expose()
     @Type(() => ShowReviewDTO)                  //  ReviewDTO - NOT Ready yet!
     review: ShowReviewDTO[];
 

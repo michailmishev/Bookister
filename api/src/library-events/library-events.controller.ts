@@ -90,6 +90,11 @@ export class LibraryEventsController {
             }
             //
 
+            const updatedBookTakenByWhoData = await this.bookService.updateBookIsTakenby(bookId, user.username, BorrowTypeEnum.Taken);
+            if (!updatedBookTakenByWhoData) {
+                throw new BadRequestException('It was not recored who took the book!');
+            }
+
             const createdTakeEvent = await this.libraryEventsService.takeBook(libraryEvent1, bookId, user);
             if (!createdTakeEvent) {
                 throw new NotFoundException('This book was not found!');
@@ -118,7 +123,11 @@ export class LibraryEventsController {
             if (!updateBookAvailabilityStatus) {
                 throw new BadRequestException('The book availability status was not successfully updated!');
             }
-            //
+
+            const updatedBookTakenByWhoData = await this.bookService.updateBookIsTakenby(bookId, user.username, BorrowTypeEnum.Returned);
+            if (!updatedBookTakenByWhoData) {
+                throw new BadRequestException('It was not recored that the user returned the book!');
+            }
 
             const createdReturnEvent = await this.libraryEventsService.returnBook(libraryEvent1, bookId, user);
             if (!createdReturnEvent) {
