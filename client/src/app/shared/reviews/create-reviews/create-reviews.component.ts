@@ -15,6 +15,10 @@ export class CreateReviewsComponent implements OnInit {
 
   public successMessage: any;
 
+  // -----------------------
+  public radioButtonValue: any;
+  // -----------------------
+
   @Input()
   bookId: string;
   //  -------- ------- ------- ------- -------
@@ -54,6 +58,12 @@ export class CreateReviewsComponent implements OnInit {
   // }                                    // -------
   //  -------- ------- ------- ------- --------- ---------- --------- --------- -------- ------
 
+
+  // ---------------------
+  setRadioButtonValue(buttonValue: any) {
+    this.radioButtonValue = buttonValue;
+  }
+  // ---------------------
 
 
   createReview(ratingType: number, comment: string) {

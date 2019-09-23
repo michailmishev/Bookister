@@ -6,23 +6,23 @@
         
         <div class="form-group">
           <label data-error="wrong" data-success="right" for="form29">How was the book?</label>
-          <form #ratingInput>
-            <input #ratingInput type="radio" name="rating" value=1> Very Bad<br>
-            <input #ratingInput type="radio" name="rating" value=2> Poor<br>
-            <input #ratingInput type="radio" name="rating" value=3> OK<br>
-            <input #ratingInput type="radio" name="rating" value=4> Good<br>
-            <input #ratingInput type="radio" name="rating" value=5> Excellent
+          <form class="radio">
+            <input (click)="setRadioButtonValue(1)" type="radio" name="rating"> Very Bad<br>
+            <input (click)="setRadioButtonValue(2)" type="radio" name="rating"> Poor<br>
+            <input (click)="setRadioButtonValue(3)" type="radio" name="rating"> OK<br>
+            <input (click)="setRadioButtonValue(4)" type="radio" name="rating"> Good<br>
+            <input (click)="setRadioButtonValue(5)" type="radio" name="rating"> Excellent
           </form>
           <br>
         </div>
 
-      
+        
         <div class="form-group">
           <label data-error="wrong" data-success="right" for="form29">Comment:</label>
           <textarea #commentInput class="form-control" type="text" rows="3" required minlength="1"></textarea>
         </div>
 
-        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(ratingInput.value, commentInput.value);
+        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(radioButtonValue, commentInput.value);
           commentInput.value=''">
           Submit</div>
 
