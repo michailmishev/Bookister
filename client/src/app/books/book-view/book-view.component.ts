@@ -45,7 +45,6 @@ export class BookViewComponent implements OnInit, OnDestroy {
   public topic: string;
   public language: string;
   public takenBy: string;
-  public bookToUpdate: string;
   public successMessage: any;
   public showEditButton: boolean;
   public showDeleteButton: boolean;
@@ -69,12 +68,10 @@ export class BookViewComponent implements OnInit, OnDestroy {
           this.book = data;
 
           this.title = data.title;
-          this.author = data.author;    // user?
+          this.author = data.author;
           this.topic = data.topic;
           this.language = data.language;
           this.takenBy = data.takenBy;
-
-          // this.bookToUpdate = data.body;
 
           const reversed = this.authService.reverseToken();
           const isAdmin = this.authService.setAdminStatus();

@@ -5,12 +5,12 @@
         
         <div class="form-group">
           <label data-error="wrong" data-success="right" for="form29">How was the book?</label>
-          <form #ratingInput >
-            <input type="radio" name="rating" value="1"> Very Bad<br>
-            <input type="radio" name="rating" value="2"> Poor<br>
-            <input type="radio" name="rating" value="3"> OK<br>
-            <input type="radio" name="rating" value="4"> Good<br>
-            <input type="radio" name="rating" value="5"> Excellent
+          <form #ratingInput>
+            <input #ratingInput type="radio" name="rating" value=1> Very Bad<br>
+            <input #ratingInput type="radio" name="rating" value=2> Poor<br>
+            <input #ratingInput type="radio" name="rating" value=3> OK<br>
+            <input #ratingInput type="radio" name="rating" value=4> Good<br>
+            <input #ratingInput type="radio" name="rating" value=5> Excellent
           </form>
           <br>
         </div>
@@ -21,10 +21,11 @@
           <textarea #commentInput class="form-control" type="text" rows="3" required minlength="1"></textarea>
         </div>
 
-        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(ratingInput.value, commentInput.value)">
+        <div class="btn btn-outline-secondary my-2 my-sm-0  ml-auto" (click)="createReview(ratingInput.value, commentInput.value);
+          commentInput.value=''">
           Submit</div>
 
-        <!-- <label style="color:green;">{{reviewSuccessMessage}}</label>   -->
+        <label id="successMessageLabel" style="color:#56b0d1;">{{successMessage}}</label>
 
       </form>
     </div>
