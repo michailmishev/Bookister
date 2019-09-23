@@ -24,7 +24,14 @@
           </div>
         </td> -->
         <!--  -->
-        <td *ngIf=isThereAverageRating(book.averageRating)>{{book.averageRating}}</td>
+        <!-- <td *ngIf=isThereAverageRating(book.averageRating)>{{book.averageRating}}</td> -->
+        <td class="ratingStars" *ngIf=isOneStar(book.averageRating)>★☆☆☆☆</td>
+        <td class="ratingStars" *ngIf=isTwoStar(book.averageRating)>★★️️️️️️☆☆☆</td>
+        <td class="ratingStars" *ngIf=isThreeStar(book.averageRating)>★★★️️️☆☆</td>
+        <td class="ratingStars" *ngIf=isFourStar(book.averageRating)>★★★★☆</td>
+        <td class="ratingStars" *ngIf=isFiveStar(book.averageRating)>★★★★★  </td>
+        
+
         <td *ngIf=!isThereAverageRating(book.averageRating)></td>
         <!-- availabe / taken / taken by you -->
         <td *ngIf="!book.isTaken;" id="isFree">available</td>

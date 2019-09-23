@@ -38,6 +38,10 @@
   color: #ffc038;
 }
 
+.ratingStars {
+  color: grey;
+  font-size: 18px;
+}
 
 
   /* ------------ 5 stars rating * * * * * ------------ */
