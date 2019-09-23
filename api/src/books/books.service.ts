@@ -128,7 +128,7 @@ export class BooksService {
 
     async updateBookAveragaRating(bookId: string): Promise<string> | undefined {
         const [allReviewsOfTheBook, reviewsCount]  = await this.reviewReoisitory.findAndCount({ where:
-            { book: bookId, isDeleted: false }
+            { book: bookId, isDeleted: false },
         });
 
         const bookToBeUpdated = await this.bookRepository.findOne({id: bookId});

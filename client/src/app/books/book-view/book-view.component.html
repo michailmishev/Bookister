@@ -14,8 +14,9 @@
         <table id="bookinfotable">
           <tr>
               <td class="bookinfotitle lead">rating:</td>
-              <td class="bookinfodata lead">{{book.averageRating}} 
-                <span *ngIf=isThereAverageRating(book.averageRating)>  (out of 5)</span>
+              <td class="bookinfodata lead">
+                <span *ngIf=isThereAverageRating(book.averageRating)>{{book.averageRating}} </span>
+                <span id="outOfFive" *ngIf=isThereAverageRating(book.averageRating)>  (out of 5)</span>
                 <span id="noReviewsForThatBook" *ngIf=!isThereAverageRating(book.averageRating)> no reviews yet ☹️ </span>
               </td>  
           </tr>

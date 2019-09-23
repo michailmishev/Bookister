@@ -46,7 +46,13 @@ export class BooksListComponent implements OnInit, OnDestroy {
         // (book.takenBy === reversed.username)
 
 
+  }
 
+  public isThereAverageRating(averageRating: any) {
+    if (averageRating >= 1 && averageRating <= 5) {
+      return true;
+    }
+    return false;
   }
 
 

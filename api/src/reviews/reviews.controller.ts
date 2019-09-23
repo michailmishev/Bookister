@@ -143,7 +143,15 @@ export class ReviewsController {
         } else if (((await reviewToBeDeleted).user.username !== user.username) && !isAdmin) {
             throw new UnauthorizedException('Unauthorized operation!');
         }
+
         const createdReview = await this.reviewsService.deleteReview(reviewId, user);
+
+        // --------------------------- Can't update book's average rating after deleting a review ! ! ! --------------------------
+        // const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        // if (!updateBookAveragaRating) {
+        //     throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        // }
+
         return {
             message: 'Review has been deleted successfully!',
             data: createdReview,
@@ -160,6 +168,12 @@ export class ReviewsController {
         if (!review) {
             throw new NotFoundException('Review not found!');
         }
+
+        // const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        // if (!updateBookAveragaRating) {
+        //     throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        // }
+
         return await review;
     }
 

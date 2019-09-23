@@ -100,12 +100,24 @@ export class BookViewComponent implements OnInit, OnDestroy {
   }
 
 
-  public isThereAverageRating(averageRating: string) {
-    if (averageRating !== null) {
+  // -------- ------- --------- ---------- -------- ---------
+  // public isThereAverageRating(averageRating: string) {
+  //   if (averageRating !== null) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  public isThereAverageRating(averageRating: any) {
+    if (averageRating >= 1 && averageRating <= 5) {
       return true;
     }
     return false;
   }
+
+
+
+
 
 
 

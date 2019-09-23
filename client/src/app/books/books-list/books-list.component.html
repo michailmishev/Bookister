@@ -24,7 +24,8 @@
           </div>
         </td> -->
         <!--  -->
-        <td>{{book.averageRating}}</td>
+        <td *ngIf=isThereAverageRating(book.averageRating)>{{book.averageRating}}</td>
+        <td *ngIf=!isThereAverageRating(book.averageRating)></td>
         <!-- availabe / taken / taken by you -->
         <td *ngIf="!book.isTaken;" id="isFree">available</td>
         <td *ngIf="book.takenBy === logedInUser" id="isTakenByYou">in you</td>

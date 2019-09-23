@@ -59,6 +59,14 @@ export class BooksController {
         if (!book) {
             throw new NotFoundException(`Book does not exist or it has been deleted`);
         }
+
+        // -------------
+        const updateBookAveragaRating = await this.bookService.updateBookAveragaRating(bookId);
+        if (!updateBookAveragaRating) {
+            throw new BadRequestException('There was a problem with updating the average rating of the book!');
+        }
+        // --------------
+
         return book;
     }
 
