@@ -18,7 +18,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
   public deleteUserSubscription: Subscription;
   // public banUserSubscription: Subscription;
   // public unbanUserSubscription: Subscription;
-  public reviews;                                       // ? ? ?
+  public reviews;
 
   constructor(
     private readonly router: Router,
@@ -71,7 +71,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
             }
           }
         );
-        ///////////////////////////////////////////////////////////////////////////////
+        //////////
       }
     );
   }
