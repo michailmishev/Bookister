@@ -4,6 +4,7 @@ import { Role } from './role.entity';
 import { LibraryEvent } from './library-event.entity';
 import { type } from 'os';
 import { Review } from './review.entity';
+import { UserAlloweToReview } from './user-allowed-to-review.entity';
 
 @Entity('user')
 export class User {
@@ -38,5 +39,8 @@ export class User {
 
     @OneToMany(type => Review, review => review.user)
     review: Promise<Review[]>;
+
+    @OneToMany(type => UserAlloweToReview, userAllowedToReview => userAllowedToReview.book)
+    userAllowedToReview: Promise<UserAlloweToReview[]>;
 
 }

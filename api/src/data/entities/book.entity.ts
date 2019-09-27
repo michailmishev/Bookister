@@ -3,6 +3,7 @@ import { boolean } from 'joi';
 import { LibraryEvent } from './library-event.entity';
 import { Review } from './review.entity';
 import { RatingTypeEnum } from '../../common/enums/rating-type.enum';
+import { UserAlloweToReview } from './user-allowed-to-review.entity';
 
 @Entity('book')
 export class Book {
@@ -54,5 +55,8 @@ export class Book {
 
     @OneToMany(type => Review, review => review.book)
     review: Promise<Review[]>;
+
+    @OneToMany(type => UserAlloweToReview, userAllowedToReview => userAllowedToReview.book)
+    userAllowedToReview: Promise<UserAlloweToReview[]>;
 
 }
