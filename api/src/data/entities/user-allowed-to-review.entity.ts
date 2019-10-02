@@ -2,7 +2,7 @@ import { PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Entity } f
 import { User } from './user.entity';
 import { Book } from './book.entity';
 
-@Entity('user-allowed-to-review')
+@Entity('user_allowed_to_review')
 export class UserAlloweToReview {
 
     @PrimaryGeneratedColumn()
@@ -17,7 +17,8 @@ export class UserAlloweToReview {
     @CreateDateColumn()
     timestamp: Date;
 
-    @Column('boolean', {default: false})
+    // @Column('boolean', {default: false})
+    @Column('boolean')
     isAllowedToReview: boolean;
 
 }

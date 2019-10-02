@@ -34,32 +34,6 @@ export class LibraryEventsController {
         private readonly bookService: BooksService,
     ) { }
 
-    // @Post('/:bookId/libraryEvents')
-    // @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
-    // @UsePipes(
-    //     new ValidationPipe({
-    //         transform: true,
-    //         whitelist: true,
-    //     }),
-    // )
-    // async takeOrReturnBook(
-    //     @User() user: UserShowDTO,
-    //     @Param('bookId') bookId: string,
-    //     @Body() libraryEvent1: CreateLibraryEventDTO,
-    // ): Promise<any> {
-    //     // await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
-    //     const createdLibraryEvent = await this.libraryEventsService.takeOrReturnBook(libraryEvent1, bookId, user);
-    //     if (!createdLibraryEvent) {
-    //             throw new NotFoundException('This book was not found.');
-    //     }
-    //     // if book is taken: ...
-    //     return {
-    //         message: 'Book has been taken/returned successfully!',
-    //         data: createdLibraryEvent,
-    //     };
-    // }
-
     @Post('/:bookId/libraryEvents')
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuard('jwt'), JwtAuthGuard)
@@ -74,7 +48,7 @@ export class LibraryEventsController {
         @Param('bookId') bookId: string,
         @Body() libraryEvent1: CreateLibraryEventDTO,
     ): Promise<any> {
-        // await this.libraryEventsService.checkForBorrowTypesAndCreateThem();
+
         // TAKE BOOK
         if (libraryEvent1.borrowType === BorrowTypeEnum.Taken) {
 
@@ -83,12 +57,10 @@ export class LibraryEventsController {
                 throw new BadRequestException('This book is already taken');
             }
 
-            //
             const updateBookAvailabilityStatus = await this.bookService.updateBookAvailabilityStatus(BorrowTypeEnum.Taken, bookId);
             if (!updateBookAvailabilityStatus) {
                 throw new BadRequestException('The book availability status was not successfully updated!');
             }
-            //
 
             const updatedBookTakenByWhoData = await this.bookService.updateBookIsTakenby(bookId, user.username, BorrowTypeEnum.Taken);
             if (!updatedBookTakenByWhoData) {
@@ -118,7 +90,6 @@ export class LibraryEventsController {
                 throw new BadRequestException('You cannot return a book that is not taken by you');
             }
 
-            //
             const updateBookAvailabilityStatus = await this.bookService.updateBookAvailabilityStatus(BorrowTypeEnum.Returned, bookId);
             if (!updateBookAvailabilityStatus) {
                 throw new BadRequestException('The book availability status was not successfully updated!');
@@ -133,6 +104,15 @@ export class LibraryEventsController {
             if (!createdReturnEvent) {
                 throw new NotFoundException('This book was not found!');
             }
+
+
+            // ----------------
+            const reviewPermission = await this.libraryEventsService.createReviewPermission(bookId, user);
+            if (!reviewPermission) {
+                throw new BadRequestException('Cannot create UserAllowedToReviewThisBookEvent');
+            }
+            // -----------------
+
 
             return {
                 message: 'Book has been returned successfully!',

@@ -20,13 +20,9 @@ export class LibraryEvent {
     //
     @Column({
         type: 'enum',
-        enum: BorrowTypeEnum,         // Taken / Returned
+        enum: BorrowTypeEnum,
     })
     borrowType: BorrowTypeEnum;            // Taken / Returned
-    //
-    // @Column('nvarchar')
-    // borrowType: string;
-    //
 
     @CreateDateColumn()
     timestamp: Date;

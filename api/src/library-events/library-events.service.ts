@@ -11,6 +11,9 @@ import { CreateLibraryEventDTO } from 'src/models/library-events/create-library-
 import { UserShowDTO } from 'src/models/user';
 import { Book } from 'src/data/entities/book.entity';
 import { User } from 'src/data/entities/user.entity';
+import { UserAlloweToReview } from 'src/data/entities/user-allowed-to-review.entity';
+import { ShowUserAllowedToReviewDTO } from 'src/models/users-allowed-to-review/show-user-allowed-to-review.dto';
+import { CreateUserAllowedToReviewDTO } from 'src/models/users-allowed-to-review/create-user-allowed-to-review.dto';
 
 @Injectable()
 export class LibraryEventsService {
@@ -20,6 +23,7 @@ export class LibraryEventsService {
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         // @InjectRepository(BorrowType) private readonly borrowTypesRepository: Repository<BorrowType>,
         @InjectRepository(LibraryEvent) private readonly libraryEventsRepository: Repository<LibraryEvent>,
+        @InjectRepository(UserAlloweToReview) private readonly reviewPermissionRepository: Repository<UserAlloweToReview>,
     ) { }
 
     async createLibraryEventDTO(libraryEvent: LibraryEvent): Promise<ShowLibraryEventDTO> {
@@ -32,32 +36,6 @@ export class LibraryEventsService {
         return await plainToClass(ShowLibraryEventDTO, libraryEventDTO);
     }
 
-    // async checkForBorrowTypesAndCreateThem(): Promise<void> {
-    //     const borrowTypes = [ BorrowTypeEnum.Taken, BorrowTypeEnum.Returned ];
-    //     await borrowTypes.forEach(async (borrowType) => {
-    //         if (!(await this.borrowTypesRepository.findOne({ name: borrowType }))) {
-    //             const borrowTypeToBeCreated = await this.borrowTypesRepository.create({ name: borrowType });
-    //             await this.borrowTypesRepository.save(borrowTypeToBeCreated);
-    //         }
-    //     });
-    // }
-
-    //
-    // async takeOrReturnBook(newLibraryEvent: CreateLibraryEventDTO, bookId: string, user: UserShowDTO): Promise<ShowLibraryEventDTO> {
-    //     const libraryEventToBeCreated = await this.libraryEventsRepository.create(newLibraryEvent);
-    //     const bookOfTheLibraryEvent = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
-    //     if (!bookOfTheLibraryEvent) {
-    //         return undefined;
-    //     }
-    //     const author = await this.usersRepository.findOne({ username: user.username });
-    //     libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
-    //     libraryEventToBeCreated.user = Promise.resolve(author);
-    //
-    //     const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
-    //     return this.createLibraryEventDTO(createdLibraryEvent);
-    // }
-    //
-
     async takeBook(newLibraryEvent: CreateLibraryEventDTO, bookId: string, user: UserShowDTO): Promise<ShowLibraryEventDTO> {
         const libraryEventToBeCreated = await this.libraryEventsRepository.create(newLibraryEvent);
         const bookOfTheLibraryEvent = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
@@ -68,10 +46,6 @@ export class LibraryEventsService {
         const author = await this.usersRepository.findOne({ username: user.username });
         libraryEventToBeCreated.book = Promise.resolve(bookOfTheLibraryEvent);
         libraryEventToBeCreated.user = Promise.resolve(author);
-
-        //
-
-        //
 
         const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
         return this.createLibraryEventDTO(createdLibraryEvent);
@@ -91,6 +65,38 @@ export class LibraryEventsService {
         const createdLibraryEvent = await this.libraryEventsRepository.save(libraryEventToBeCreated);
         return this.createLibraryEventDTO(createdLibraryEvent);
     }
+
+
+    // -----------------------------
+    async createReviewPermission(bookId: string, user: UserShowDTO): Promise<string> | undefined {
+        const existingReviewPermission: UserAlloweToReview = await this.reviewPermissionRepository.findOne({
+            where: {book: bookId, user: user}
+        });
+        if (!!existingReviewPermission) {
+            return 'Review Permission Already Exist!';
+        } else {
+            const allowedToReview: CreateUserAllowedToReviewDTO = { isAllowedToReview: true };
+            const reviewPermissionToBeCreated = await this.reviewPermissionRepository.create(allowedToReview);
+
+            const bookOfReviewPrmission = await this.booksRepository.findOne({ id: bookId, isDeleted: false });
+            if (!bookOfReviewPrmission) {
+                return undefined;
+            }
+
+            const author = await this.usersRepository.findOne({ username: user.username });
+
+            reviewPermissionToBeCreated.book = Promise.resolve(bookOfReviewPrmission);
+            reviewPermissionToBeCreated.user = Promise.resolve(author);
+
+            const createdReviewPermission = await this.reviewPermissionRepository.save(reviewPermissionToBeCreated);
+            if (!!this.createReviewPermission) {
+                return 'Review Permission successfully added!';
+            }
+        }
+    }
+    // -----------------------------
+
+
 
     async checkIfBookIsTaken(bookId: string): Promise<string> | undefined {
         const lastEventForThisBook: LibraryEvent = await this.libraryEventsRepository.findOne({
@@ -117,5 +123,15 @@ export class LibraryEventsService {
             }
         }
     }
+
+
+    // checkIfReviewPermissionExists
+    // if not create reviewPermission
+
+    // with deleting review and leaving a review: update status
+    
+
+
+
 
 }
