@@ -9,11 +9,13 @@ import { ReviewsController } from './reviews.controller';
 import { LibraryEvent } from 'src/data/entities/library-event.entity';
 import { BooksModule } from 'src/books/books.module';
 import { BooksService } from 'src/books/books.service';
+import { LibraryEventsService } from 'src/library-events/library-events.service';
+import { UserAlloweToReview } from 'src/data/entities/user-allowed-to-review.entity';
 // import { RatingType } from 'src/data/entities/rating-type.entity';
 
 @Module({
 
-  imports: [AuthModule, TypeOrmModule.forFeature([Review, Book, User, LibraryEvent /* , RatingType */ ]), forwardRef(() => BooksModule)],
+  imports: [AuthModule, TypeOrmModule.forFeature([Review, Book, User, LibraryEvent, UserAlloweToReview /* , RatingType */ ]), forwardRef(() => BooksModule)],
   controllers: [ReviewsController],
   providers: [ReviewsService, BooksService],
   exports: [ReviewsService, BooksService] ,

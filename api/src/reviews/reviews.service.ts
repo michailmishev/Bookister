@@ -12,6 +12,7 @@ import { CreateReviewDTO } from 'src/models/reviews/create-review.dto';
 import { UserShowDTO } from 'src/models/user';
 import { LibraryEvent } from 'src/data/entities/library-event.entity';
 import { RatingTypeEnum } from 'src/common/enums/rating-type.enum';
+import { UserAlloweToReview } from 'src/data/entities/user-allowed-to-review.entity';
 
 @Injectable()
 export class ReviewsService {
@@ -21,6 +22,10 @@ export class ReviewsService {
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         @InjectRepository(LibraryEvent) private readonly libraryEventRepository: Repository<LibraryEvent>,
         // @InjectRepository(RatingType) private readonly ratingTypesRepository: Repository<RatingType>,
+        // -----------------------------------
+        @InjectRepository(UserAlloweToReview) private readonly reviewPermissionRepository: Repository<UserAlloweToReview>,
+        // -------------------------------------
+
     ) { }
 
     async createReviewDTO(review: Review): Promise<ShowReviewDTO> {
@@ -124,5 +129,28 @@ export class ReviewsService {
                 break;
         }
     }
+
+
+
+    // -----------------------
+    async updateReviewPermission(bookId: string, user: UserShowDTO): Promise<string> | undefined {
+        const reviewPermissionToBeUpdated = await this.reviewPermissionRepository.findOne({
+            where: {book: bookId, user: user}
+        });
+        if (!!reviewPermissionToBeUpdated) {
+            if (reviewPermissionToBeUpdated.isAllowedToReview === false) {
+                reviewPermissionToBeUpdated.isAllowedToReview = true;
+            } else if (reviewPermissionToBeUpdated.isAllowedToReview === true) {
+                reviewPermissionToBeUpdated.isAllowedToReview = false;
+            }
+            const updatedReviewPermission = await this.reviewPermissionRepository.save(reviewPermissionToBeUpdated);
+            if (!!updatedReviewPermission) {
+                return 'Review Permission successfully updated!';
+            }
+        }
+    }
+    // ----------------------
+
+
 
 }

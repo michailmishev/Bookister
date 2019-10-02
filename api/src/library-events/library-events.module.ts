@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { LibraryEventsService } from './library-events.service';
 import { LibraryEventsController } from './library-events.controller';
 import { AuthModule } from 'src/auth/auth.module';
@@ -13,10 +13,11 @@ import { UserAlloweToReview } from 'src/data/entities/user-allowed-to-review.ent
 
 @Module({
 
-    imports: [AuthModule, TypeOrmModule.forFeature([Book, User, /* BorrowType, */ LibraryEvent, UserAlloweToReview]) , BooksModule],
+    imports: [AuthModule, TypeOrmModule.forFeature([Book, User, /* BorrowType, */ LibraryEvent, UserAlloweToReview]) , BooksModule ],
     controllers: [LibraryEventsController],
     providers: [LibraryEventsService, BooksService],
     exports: [LibraryEventsService, BooksService],
 
 })
 export class LibraryEventsModule {}
+

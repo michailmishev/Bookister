@@ -24,14 +24,16 @@ import { IsAdmin } from 'src/common/decorators/is-admin.decorator';
 import { UpdateReviewDTO } from 'src/models/reviews/update-review.dto';
 import { ShowReviewDTO } from 'src/models/reviews/show-review.dto';
 import { BooksService } from 'src/books/books.service';
+import { LibraryEventsService } from 'src/library-events/library-events.service';
 
 @Controller('books')
 export class ReviewsController {
-    libraryEventService: any;
+    libraryEventService: any;        // --------------------------------------
 
     constructor(
         private readonly reviewsService: ReviewsService,
         private readonly bookService: BooksService,
+        // private readonly libraryEventService: LibraryEventsService,     // --------------------------------
     ) { }
 
     @Post('/:bookId/reviews')
@@ -78,6 +80,13 @@ export class ReviewsController {
             throw new BadRequestException('There was a problem with updating the average rating of the book!');
         }
         //
+
+        // --------------
+        const updatedReviewPermission = await this.reviewsService.updateReviewPermission(bookId, user);
+        if (!updatedReviewPermission) {
+            throw new BadRequestException('There was a problem with updating the Review Permission!');
+        }
+        // ------------------
 
         return {
             message: 'Review has been submitted successfully!',
@@ -149,6 +158,11 @@ export class ReviewsController {
         // if (!updateBookAveragaRating) {
         //     throw new BadRequestException('There was a problem with updating the average rating of the book!');
         // }
+
+        const updatedReviewPermission = await this.reviewsService.updateReviewPermission(bookId, user);
+        if (!updatedReviewPermission) {
+            throw new BadRequestException('There was a problem with updating the Review Permission!');
+        }
 
         return {
             message: 'Review has been deleted successfully!',

@@ -96,6 +96,24 @@ export class LibraryEventsService {
     }
     // -----------------------------
 
+    // async updateReviewPermission(bookId: string, user: UserShowDTO): Promise<string> | undefined {
+    //     const reviewPermissionToBeUpdated = await this.reviewPermissionRepository.findOne({
+    //         where: {book: bookId, user: user}
+    //     });
+    //     if (!!reviewPermissionToBeUpdated) {
+    //         if (reviewPermissionToBeUpdated.isAllowedToReview === false) {
+    //             reviewPermissionToBeUpdated.isAllowedToReview = true;
+    //         } else if (reviewPermissionToBeUpdated.isAllowedToReview === true) {
+    //             reviewPermissionToBeUpdated.isAllowedToReview = false;
+    //         }
+    //         const updatedReviewPermission = await this.reviewPermissionRepository.save(reviewPermissionToBeUpdated);
+    //         if (!!updatedReviewPermission) {
+    //             return 'Review Permission successfully updated!';
+    //         }
+    //     }
+    // }
+    // -----------------------------
+
 
 
     async checkIfBookIsTaken(bookId: string): Promise<string> | undefined {
@@ -123,15 +141,5 @@ export class LibraryEventsService {
             }
         }
     }
-
-
-    // checkIfReviewPermissionExists
-    // if not create reviewPermission
-
-    // with deleting review and leaving a review: update status
-    
-
-
-
 
 }
