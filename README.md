@@ -4,7 +4,7 @@
 
 #### The application is written in TypeScript. The front-end part is done with Angular 7 and Bootstrap. The technologies used for the back-end are NestJS with TypeORM and MariaDB as a relational database. The authentication and authorization are working with JSON Web Token (JWT).
 
-<hr size="1px">
+<br />
 
 ### Instructions for running the project:
 
@@ -48,16 +48,15 @@
     ```
    
    
-<hr>
 <br />
 
 ## Screenshots:
 
 
 <img src="https://user-images.githubusercontent.com/13811965/67276614-c14c8000-f4cd-11e9-8586-df7e7f4f3a0c.png">
-<br />
+<hr>
 <img src="https://user-images.githubusercontent.com/13811965/67276554-9feb9400-f4cd-11e9-9627-8089797e83b6.png" width="">
-<br />
+<hr>
 <img src="https://user-images.githubusercontent.com/13811965/67276716-f35de200-f4cd-11e9-87ce-4b9b54c96748.png">
 
 
