@@ -4,7 +4,7 @@
 
 #### The application is written in TypeScript. The front-end part is done with Angular 7 and Bootstrap. The technologies used for the back-end are NestJS with TypeORM and MariaDB as a relational database. The authentication and authorization are working with JSON Web Token (JWT).
 
-<hr size="1">
+<hr size="1px">
 
 ### Instructions for running the project:
 
