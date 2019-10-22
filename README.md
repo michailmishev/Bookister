@@ -1,8 +1,8 @@
 # Bookister
 
-### Bookister is a Library System, where the users can borrow and return books, rate them, write a review about a book they have borrowed, read all the reviews about a book and rate the reviews. The page has an administration part and only the admins can create, edit, delete a book and ban user.
+Bookister is a Library System, where the users can borrow and return books, rate them, write a review about a book they have borrowed, read all the reviews about a book and rate the reviews. The page has an administration part and only the admins can create, edit, delete a book and ban user.
 
-### The application is written in TypeScript. The front-end part is done with Angular 7 and Bootstrap. The technologies used for the back-end are NestJS with TypeORM and MariaDB as a relational database. The authentication and authorization are working with JSON Web Token (JWT).
+The application is written in TypeScript. The front-end part is done with Angular 7 and Bootstrap. The technologies used for the back-end are NestJS with TypeORM and MariaDB as a relational database. The authentication and authorization are working with JSON Web Token (JWT).
 
 <br />
 
